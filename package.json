@@ -10,6 +10,17 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/prod.js && npm run build:demo",
     "build:demo": "cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/dev.js"
   },
+  "keywords": [
+    "Bootstrap",
+    "Bootstrap4",
+    "Web",
+    "Components",
+    "Vue",
+    "VueJS",
+    "Vue2",
+    "Popover",
+    "CSS"
+  ],
   "dependencies": {
     "vue": "^2.1.8",
     "bootstrap-vue": "SirLamer/bootstrap-vue#popover-refactor"
