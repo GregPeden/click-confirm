@@ -3,7 +3,7 @@ var config = require('./base');
 var webpack = require('webpack')
 
 module.exports = Object.assign({}, config, {
-    entry: './src/clickConfirmation.vue',
+    entry: './src/ClickConfirmation.vue',
     output: {
       path: path.resolve(__dirname, '../dist'),
       filename: 'click-confirmation.js',
