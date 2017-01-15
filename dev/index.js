@@ -3,5 +3,10 @@ import ClickConfirmation from '../src/ClickConfirmation.vue'
 
 new Vue({
   el: '#app',
-  components: { ClickConfirmation }
+  components: { ClickConfirmation },
+  methods: {
+    successAlert() {
+      alert('It worked!');
+    }
+  }
 });
