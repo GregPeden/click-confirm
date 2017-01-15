@@ -1,9 +1,21 @@
 {
   "name": "click-confirmation",
   "description": "Prompt user to confirm button click event before allowing the event to proceed.",
-  "author": "Greg Peden <greg.j.peden@gmail.com>",
+  "author": {
+    "name": "Greg Peden",
+    "email": "greg.j.peden@gmail.com",
+    "url": "https://github.com/SirLamer"
+  },
   "version": "0.1.0",
   "main": "./dist/click-confirmation.js",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SirLamer/click-confirmation/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SirLamer/click-confirmation.git"
+  },
   "scripts": {
     "test": "karma start ./test/karma.conf.js",
     "dev": "webpack-dev-server --inline --hot --config ./build/dev.js --port 8080",
