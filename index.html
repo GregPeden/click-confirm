@@ -20,58 +20,57 @@
 
     <h1>Click Confirmation</h1>
     <h3>Convenient and elegant inline user confirmation of UI events.</h3>
-    <click-confirmation>
-      <button class="btn btn-primary" @click="successAlert">Test this</button>
-    </click-confirmation>
-    <p>
-      Use this document as a way to quickly start any new project.<br> All you get is this text and a
-      mostly barebones HTML document.
-    </p>
-
     <div class="row">
-      <div class="col text-center">
+      <div class="col-md text-center">
         <click-confirmation>
           <button class="btn btn-primary" @click="successAlert">Click me</button>
         </click-confirmation>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-xs-12">
-            <click-confirmation position="left">
-              <button class="btn btn-primary" @click="successAlert">Left</button>
-            </click-confirmation>
-          </div>
-          <div class="col-xs-12">
-            <click-confirmation position="right">
-              <button class="btn btn-primary" @click="successAlert">Right</button>
-            </click-confirmation>
-          </div>
-          <div class="col-xs-12">
-            <click-confirmation position="bottom">
+      <div class="col">
+        This VueJS component prompts a user to confirm a click action as intended before allowing the event to proceed.
+        The component wraps around any nested clickable element and intercepts any click event with a prompt request.
+        The prompt appears immediately adjacent to the button without otherwise interrupting the page, making the
+        experience faster and more comfortable for the user than a typical Javascript prompt.
+      </div>
+    </div>
+    <h4>Placement</h4>
+    <p></p>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="row justify-content-center">
+          <div class="col-4">
+            <click-confirmation placement="bottom">
               <button class="btn btn-primary" @click="successAlert">Bottom</button>
             </click-confirmation>
           </div>
+        </div>
+        <div class="row justify-content-end">
+          <div class="col-4">
+            <click-confirmation placement="left">
+              <button class="btn btn-primary" @click="successAlert">Left</button>
+            </click-confirmation>
+          </div>
+        </div>
+        <div class="row justify-content-start">
+          <div class="col-4">
+            <click-confirmation placement="right">
+              <button class="btn btn-primary" @click="successAlert">Right</button>
+            </click-confirmation>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <pre>
-          <code>
-            <click-confirmation position="left">
-              <button class="btn btn-primary" @click="successAlert">Left</button>
-            </click-confirmation>
+<pre><code>&lt;button class="btn btn-primary" @click="successAlert"&gt;Bottom&lt;/button&gt;
+&lt;/click-confirmation&gt;
 
-            <click-confirmation position="right">
-              <button class="btn btn-primary" @click="successAlert">Right</button>
-            </click-confirmation>
+&lt;click-confirmation position="left"&gt;
+  &lt;button class="btn btn-primary" @click="successAlert"&gt;Left&lt;/button&gt;
+&lt;/click-confirmation&gt;
 
-            <click-confirmation position="bottom">
-              <button class="btn btn-primary" @click="successAlert">Bottom</button>
-            </click-confirmation>
-          </code>
-        </pre>
+&lt;click-confirmation position="right"&gt;
+  &lt;button class="btn btn-primary" @click="successAlert"&gt;Right&lt;/button&gt;
+&lt;/click-confirmation&gt;</code></pre>
       </div>
     </div>
 

@@ -1,5 +1,5 @@
 <template>
-  <b-popover triggers="" :position="position" :title="messages.title" :show="target != null"
+  <b-popover triggers="" :placement="placement" :title="messages.title" :show="target != null"
              @showChange="popoverChange" @focus="setFocus('popover')" @blur="clearFocus">
         <span tabindex="-1" @click.capture="interceptEvent" @focus="setFocus('target')" @blur="clearFocus">
             <slot></slot>
@@ -40,7 +40,7 @@
     },
 
     props: {
-      position: {
+      placement: {
         type: String,
         default: 'top',
       },
