@@ -29,10 +29,49 @@
     </p>
 
     <div class="row">
-      <div class="col">
+      <div class="col text-center">
         <click-confirmation>
-          <button class="btn btn-primary" @click="successAlert">Test this</button>
+          <button class="btn btn-primary" @click="successAlert">Click me</button>
         </click-confirmation>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-xs-12">
+            <click-confirmation position="left">
+              <button class="btn btn-primary" @click="successAlert">Left</button>
+            </click-confirmation>
+          </div>
+          <div class="col-xs-12">
+            <click-confirmation position="right">
+              <button class="btn btn-primary" @click="successAlert">Right</button>
+            </click-confirmation>
+          </div>
+          <div class="col-xs-12">
+            <click-confirmation position="bottom">
+              <button class="btn btn-primary" @click="successAlert">Bottom</button>
+            </click-confirmation>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <pre>
+          <code>
+            <click-confirmation position="left">
+              <button class="btn btn-primary" @click="successAlert">Left</button>
+            </click-confirmation>
+
+            <click-confirmation position="right">
+              <button class="btn btn-primary" @click="successAlert">Right</button>
+            </click-confirmation>
+
+            <click-confirmation position="bottom">
+              <button class="btn btn-primary" @click="successAlert">Bottom</button>
+            </click-confirmation>
+          </code>
+        </pre>
       </div>
     </div>
 
