@@ -35,6 +35,40 @@
         experience faster and more comfortable for the user than a typical Javascript prompt.
       </div>
     </div>
+
+    <h4>Getting Started</h4>
+    <div class="row">
+      <div class="col">
+        Enclose your clickable element within the click-confirmation tags. Any emitted 'click' events will be
+        intercepted and re-transmitted if confirmed via the popup prompt.
+      </div>
+    </div>
+
+    <h4 id="the-basics">The Basics</h4>
+    <div class="row">
+      <div class="col-md-12">
+        Click Confirmation will flexibly intercept any click events. This includes both native DOM events and VueJS events.
+      </div>
+      <div class="col-md-4">
+        <p>
+          <click-confirmation>
+            <a href="http://www.example.com" target="_blank">Page link</a>
+          </click-confirmation>
+          (this will reload the page and return back to here)
+        </p>
+        <p>
+          <click-confirmation>
+            <button class="btn btn-primary" onclick="alert('It worked!')">DOM 'click' event</button>
+          </click-confirmation>
+        </p>
+        <p>
+          <click-confirmation>
+            <button class="btn btn-primary" @click="successAlert">VueJS @click event</button>
+          </click-confirmation>
+        </p>
+      </div>
+    </div>
+
     <h4>Placement</h4>
     <p></p>
     <div class="row">
@@ -60,8 +94,17 @@
             </click-confirmation>
           </div>
         </div>
+        <div class="row justify-content-center">
+          <div class="col-4">
+            <click-confirmation>
+              <button class="btn btn-primary" @click="successAlert">Top (default)</button>
+            </click-confirmation>
+          </div>
+        </div>
       </div>
-<pre><code>&lt;button class="btn btn-primary" @click="successAlert"&gt;Bottom&lt;/button&gt;
+      <div class="col-md">
+<pre><code>&lt;click-confirmation position="bottom"&gt;
+  &lt;button class="btn btn-primary" @click="successAlert"&gt;Bottom&lt;/button&gt;
 &lt;/click-confirmation&gt;
 
 &lt;click-confirmation position="left"&gt;
@@ -70,6 +113,10 @@
 
 &lt;click-confirmation position="right"&gt;
   &lt;button class="btn btn-primary" @click="successAlert"&gt;Right&lt;/button&gt;
+&lt;/click-confirmation&gt;
+
+&lt;click-confirmation&gt;
+  &lt;button class="btn btn-primary" @click="successAlert"&gt;Top (default)&lt;/button&gt;
 &lt;/click-confirmation&gt;</code></pre>
       </div>
     </div>
