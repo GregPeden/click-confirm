@@ -1,18 +1,18 @@
 <template>
   <b-popover triggers="" :placement="placement" :title="messages.title" :show="target != null"
              @showChange="popoverChange" @focus="setFocus('popover')" @blur="clearFocus">
-        <span tabindex="-1" @click.capture="interceptEvent" @focus="setFocus('target')" @blur="clearFocus">
+        <span tabindex="-1" @click.capture="interceptEvent" @focus.capture="setFocus('target')" @blur="clearFocus" ref="target">
             <slot></slot>
         </span>
     <div class="text-xs-center" slot="content">
-      <button class="btn btn-primary" @click="confirmEvent" @focus="setFocus('buttonYes')" @blur="clearFocus"
+      <a href="#" class="btn btn-primary" @click="confirmEvent" @focus="setFocus('buttonYes')" @blur="clearFocus"
               ref="buttonYes">
         <span :class="yesIcon"></span> {{ messages.yes }}
-      </button>
-      <button class="btn btn-secondary" @click="cancelEvent" @focus="setFocus('buttonNo')" @blur="clearFocus"
+      </a>
+      <a href="#" class="btn btn-secondary" @click.prevent="cancelEvent" @focus="setFocus('buttonNo')" @blur="clearFocus"
               ref="buttonNo">
         <span :class="noIcon"></span> {{ messages.no }}
-      </button>
+      </a>
     </div>
   </b-popover>
 </template>
@@ -45,6 +45,11 @@
         default: 'top',
       },
 
+      copyAttributes: {
+        type: [String, Array],
+        default: ['href', 'target']
+      },
+
       messages: {
         type: Object,
         default() {
@@ -70,7 +75,15 @@
 
       messagesMerged() {
         return Object.assign({}, messagesDefault, this.messages);
-      }
+      },
+
+      confirmAttributes() {
+        let attributes = typeof this.copyAttributes === 'string' ? this.copyAttributes.split(' ') : this.copyAttributes;
+        
+        this.copyAttributes.forEach(row => {
+
+        });
+      },
     },
 
     watch: {
@@ -82,6 +95,11 @@
               this.target = null;
           }, 20);
         }
+      },
+
+      target(newValue) {
+        console.log('Target change...');
+        console.log(newValue);
       }
     },
 
@@ -94,8 +112,10 @@
           this.setFocusOnButtonYes();
 
         if (!this.allow) {
-          console.log('Stopping propogation.');
+          console.log('Stopping propagation.');
+          e.preventDefault();
           e.stopPropagation();
+          e.stopImmediatePropagation();
         }
       },
 
@@ -134,6 +154,10 @@
           this.$refs.buttonYes.focus();
         });
       }
+    },
+
+    mounted() {
+      this._target = this.$refs.target.children[0];
     },
 
     beforeDestroy() {
