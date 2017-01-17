@@ -87,13 +87,16 @@
 
     methods: {
       interceptEvent(e) {
+        console.log('Event observed: ' + e.type);
         if (this.target == null)
           this.target = e.target;
         else
           this.setFocusOnButtonYes();
 
-        if (!this.allow)
+        if (!this.allow) {
+          console.log('Stopping propogation.');
           e.stopPropagation();
+        }
       },
 
       confirmEvent() {
