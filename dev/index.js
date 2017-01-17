@@ -1,9 +1,9 @@
 import Vue from 'vue/dist/vue.js'
-import ClickConfirmation from '../src/ClickConfirmation.vue'
+import ClickConfirm from '../src/ClickConfirm.vue'
 
 new Vue({
   el: '#app',
-  components: { ClickConfirmation },
+  components: { ClickConfirm },
   methods: {
     successAlert() {
       alert('It worked!');

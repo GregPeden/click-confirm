@@ -1,4 +1,4 @@
-# click-confirmation
+# click-confirm
 
 > Prompt user to confirm button click event before allowing the event to proceed.
 

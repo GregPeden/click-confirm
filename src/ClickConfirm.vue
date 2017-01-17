@@ -1,17 +1,18 @@
 <template>
-  <b-popover triggers="" :placement="placement" :title="messages.title" :show="target != null"
+  <b-popover class="click-confirm" triggers="" :placement="placement" :title="messages.title" :show="target != null"
              @showChange="popoverChange" @focus="setFocus('popover')" @blur="clearFocus">
-        <span tabindex="-1" @click.capture="interceptEvent" @focus.capture="setFocus('target')" @blur="clearFocus" ref="target">
+        <span tabindex="-1" @click.capture="interceptEvent" @focus.capture="setFocus('target')"
+              @blur="clearFocus" ref="trigger">
             <slot></slot>
         </span>
-    <div class="text-xs-center" slot="content">
-      <a href="#" class="btn btn-primary" @click="confirmEvent" @focus="setFocus('buttonYes')" @blur="clearFocus"
-              ref="buttonYes">
-        <span :class="yesIcon"></span> {{ messages.yes }}
+    <div class="text-center" slot="content">
+      <a href="#" v-bind="confirmationAttributes" class="btn btn-primary" :class="buttonSizeClass"
+         @click.prevent="confirmEvent" @focus="setFocus('buttonYes')" @blur="clearFocus" ref="buttonYes">
+        <span v-if="yesIcon" :class="yesIcon"></span> {{ messages.yes }}
       </a>
-      <a href="#" class="btn btn-secondary" @click.prevent="cancelEvent" @focus="setFocus('buttonNo')" @blur="clearFocus"
-              ref="buttonNo">
-        <span :class="noIcon"></span> {{ messages.no }}
+      <a href="#" class="btn btn-secondary" :class="buttonSizeClass" @click.prevent="cancelEvent"
+         @focus="setFocus('buttonNo')" @blur="clearFocus" ref="buttonNo">
+        <span v-if="noIcon" :class="noIcon"></span> {{ messages.no }}
       </a>
     </div>
   </b-popover>
@@ -35,7 +36,8 @@
       return {
         target: null,
         allow: false,
-        localFocus: false
+        localFocus: false,
+        confirmationAttributes: {}
       }
     },
 
@@ -47,14 +49,12 @@
 
       copyAttributes: {
         type: [String, Array],
-        default: ['href', 'target']
+        default() { return ['href', 'target']; }
       },
 
       messages: {
         type: Object,
-        default() {
-          return messagesDefault;
-        }
+        default() { return messagesDefault; }
       },
 
       yesIcon: {
@@ -65,6 +65,14 @@
       noIcon: {
         type: [String, Array, Object],
         default: "fa fa-times"
+      },
+
+      buttonSize: {
+        type: String,
+        default: "",
+        validator(value) {
+          return ['lg', '', 'sm'].includes(value);
+        }
       }
     },
 
@@ -77,13 +85,9 @@
         return Object.assign({}, messagesDefault, this.messages);
       },
 
-      confirmAttributes() {
-        let attributes = typeof this.copyAttributes === 'string' ? this.copyAttributes.split(' ') : this.copyAttributes;
-        
-        this.copyAttributes.forEach(row => {
-
-        });
-      },
+      buttonSizeClass() {
+        return this.buttonSize ? 'btn-' + this.buttonSize : '';
+      }
     },
 
     watch: {
@@ -97,22 +101,19 @@
         }
       },
 
-      target(newValue) {
-        console.log('Target change...');
-        console.log(newValue);
+      copyAttributes(newValue) {
+        this.updateConfirmAttributes(newValue);
       }
     },
 
     methods: {
       interceptEvent(e) {
-        console.log('Event observed: ' + e.type);
         if (this.target == null)
           this.target = e.target;
         else
           this.setFocusOnButtonYes();
 
         if (!this.allow) {
-          console.log('Stopping propagation.');
           e.preventDefault();
           e.stopPropagation();
           e.stopImmediatePropagation();
@@ -153,11 +154,27 @@
         this.$nextTick(() => {
           this.$refs.buttonYes.focus();
         });
+      },
+
+      updateConfirmAttributes(copyAttributes) {
+        if(typeof this._trigger !== 'object')
+          return {};
+
+        let attributeValuesArray = typeof copyAttributes === 'string' ? copyAttributes.split(' ') : copyAttributes;
+        let attributesList = {};
+
+        attributeValuesArray.forEach(attribute => {
+          if(this._trigger.hasAttribute(attribute))
+            attributesList[attribute] = this._trigger.getAttribute(attribute);
+        });
+
+        this.confirmationAttributes = attributesList;
       }
     },
 
     mounted() {
-      this._target = this.$refs.target.children[0];
+      this._trigger = this.$refs.trigger.children[0];
+      this.updateConfirmAttributes(this.copyAttributes);
     },
 
     beforeDestroy() {

@@ -6,8 +6,8 @@ module.exports = Object.assign({}, config, {
     entry: './src/ClickConfirmation.vue',
     output: {
       path: path.resolve(__dirname, '../dist'),
-      filename: 'click-confirmation.js',
-      library: ['click-confirmation'],
+      filename: 'click-confirm.js',
+      library: ['click-confirm'],
       libraryTarget: 'umd'
     },
     devtool: false,
