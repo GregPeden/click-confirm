@@ -34,7 +34,7 @@
     "CSS"
   ],
   "dependencies": {
-    "bootstrap-vue": "bootstrap-vue/bootstrap-vue#21b6853",
+    "bootstrap-vue": "^0.5.1",
     "vue": "^2.1.8"
   },
   "devDependencies": {

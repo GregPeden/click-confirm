@@ -8,11 +8,11 @@
     <div class="text-center" slot="content">
       <a href="#" v-bind="confirmationAttributes" class="btn btn-primary" :class="buttonSizeClass"
          @click.prevent="confirmEvent" @focus="setFocus('buttonYes')" @blur="clearFocus" ref="buttonYes">
-        <span v-if="yesIcon" :class="yesIcon"></span> {{ messages.yes }}
+        <span v-if="buttonYesIcon" :class="buttonYesIcon"></span> {{ messages.yes }}
       </a>
       <a href="#" class="btn btn-secondary" :class="buttonSizeClass" @click.prevent="cancelEvent"
          @focus="setFocus('buttonNo')" @blur="clearFocus" ref="buttonNo">
-        <span v-if="noIcon" :class="noIcon"></span> {{ messages.no }}
+        <span v-if="buttonNoIcon" :class="buttonNoIcon"></span> {{ messages.no }}
       </a>
     </div>
   </b-popover>
@@ -42,27 +42,7 @@
     },
 
     props: {
-      placement: {
-        type: String,
-        default: 'top',
-      },
-
-      copyAttributes: {
-        type: [String, Array],
-        default() { return ['href', 'target']; }
-      },
-
-      messages: {
-        type: Object,
-        default() { return messagesDefault; }
-      },
-
-      yesIcon: {
-        type: [String, Array, Object],
-        default: "fa fa-check"
-      },
-
-      noIcon: {
+      buttonNoIcon: {
         type: [String, Array, Object],
         default: "fa fa-times"
       },
@@ -73,24 +53,48 @@
         validator(value) {
           return ['lg', '', 'sm'].includes(value);
         }
+      },
+
+      buttonYesIcon: {
+        type: [String, Array, Object],
+        default: "fa fa-check"
+      },
+      
+      copyAttributes: {
+        type: [String, Array],
+        default() { return ['href', 'target']; }
+      },
+
+      messages: {
+        type: Object,
+        default() { return messagesDefault; }
+      },
+      
+      placement: {
+        type: String,
+        default: 'top',
       }
     },
 
     computed: {
+      buttonSizeClass() {
+        return this.buttonSize ? 'btn-' + this.buttonSize : '';
+      },
+
       groupFocus() {
         return this.localFocus != false;
       },
 
       messagesMerged() {
         return Object.assign({}, messagesDefault, this.messages);
-      },
-
-      buttonSizeClass() {
-        return this.buttonSize ? 'btn-' + this.buttonSize : '';
       }
     },
 
     watch: {
+      copyAttributes(newValue) {
+        this.updateConfirmAttributes(newValue);
+      },
+
       groupFocus(newValue, oldValue) {
         if (oldValue && !newValue) {
           clearTimeout(this._groupFocusTimer);
@@ -99,25 +103,16 @@
               this.target = null;
           }, 20);
         }
-      },
-
-      copyAttributes(newValue) {
-        this.updateConfirmAttributes(newValue);
       }
     },
 
     methods: {
-      interceptEvent(e) {
-        if (this.target == null)
-          this.target = e.target;
-        else
-          this.setFocusOnButtonYes();
+      cancelEvent() {
+        this.target = null;
+      },
 
-        if (!this.allow) {
-          e.preventDefault();
-          e.stopPropagation();
-          e.stopImmediatePropagation();
-        }
+      clearFocus(e) {
+        this.localFocus = false;
       },
 
       confirmEvent() {
@@ -131,8 +126,17 @@
         this.cancelEvent();
       },
 
-      cancelEvent() {
-        this.target = null;
+      interceptEvent(e) {
+        if (this.target == null)
+          this.target = e.target;
+        else
+          this.setFocusOnButtonYes();
+
+        if (!this.allow) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+        }
       },
 
       popoverChange(newShow) {
@@ -144,10 +148,6 @@
 
       setFocus(focusName, e) {
         this.localFocus = focusName
-      },
-
-      clearFocus(e) {
-        this.localFocus = false;
       },
 
       setFocusOnButtonYes() {

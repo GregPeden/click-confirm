@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import ClickConfirm from '../src/ClickConfirm.vue'
 
-Vue.use('clickConfirm', ClickConfirm);
+Vue.component('clickConfirm', ClickConfirm);
 
 new Vue({
   el: '#app',

@@ -1065,9 +1065,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	  props: {
-	    placement: {
+	    buttonNoIcon: {
+	      type: [String, Array, Object],
+	      default: "fa fa-times"
+	    },
+
+	    buttonSize: {
 	      type: String,
-	      default: 'top'
+	      default: "",
+	      validator: function validator(value) {
+	        return ['lg', '', 'sm'].includes(value);
+	      }
+	    },
+
+	    buttonYesIcon: {
+	      type: [String, Array, Object],
+	      default: "fa fa-check"
 	    },
 
 	    copyAttributes: {
@@ -1084,38 +1097,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    },
 
-	    yesIcon: {
-	      type: [String, Array, Object],
-	      default: "fa fa-check"
-	    },
-
-	    noIcon: {
-	      type: [String, Array, Object],
-	      default: "fa fa-times"
-	    },
-
-	    buttonSize: {
+	    placement: {
 	      type: String,
-	      default: "",
-	      validator: function validator(value) {
-	        return ['lg', '', 'sm'].includes(value);
-	      }
+	      default: 'top'
 	    }
 	  },
 
 	  computed: {
+	    buttonSizeClass: function buttonSizeClass() {
+	      return this.buttonSize ? 'btn-' + this.buttonSize : '';
+	    },
 	    groupFocus: function groupFocus() {
 	      return this.localFocus != false;
 	    },
 	    messagesMerged: function messagesMerged() {
 	      return (0, _assign2.default)({}, messagesDefault, this.messages);
-	    },
-	    buttonSizeClass: function buttonSizeClass() {
-	      return this.buttonSize ? 'btn-' + this.buttonSize : '';
 	    }
 	  },
 
 	  watch: {
+	    copyAttributes: function copyAttributes(newValue) {
+	      this.updateConfirmAttributes(newValue);
+	    },
 	    groupFocus: function groupFocus(newValue, oldValue) {
 	      var _this = this;
 
@@ -1125,21 +1128,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	          if (!_this.groupFocus) _this.target = null;
 	        }, 20);
 	      }
-	    },
-	    copyAttributes: function copyAttributes(newValue) {
-	      this.updateConfirmAttributes(newValue);
 	    }
 	  },
 
 	  methods: {
-	    interceptEvent: function interceptEvent(e) {
-	      if (this.target == null) this.target = e.target;else this.setFocusOnButtonYes();
-
-	      if (!this.allow) {
-	        e.preventDefault();
-	        e.stopPropagation();
-	        e.stopImmediatePropagation();
-	      }
+	    cancelEvent: function cancelEvent() {
+	      this.target = null;
+	    },
+	    clearFocus: function clearFocus(e) {
+	      this.localFocus = false;
 	    },
 	    confirmEvent: function confirmEvent() {
 	      if (this.target != null) {
@@ -1150,17 +1147,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      this.cancelEvent();
 	    },
-	    cancelEvent: function cancelEvent() {
-	      this.target = null;
+	    interceptEvent: function interceptEvent(e) {
+	      if (this.target == null) this.target = e.target;else this.setFocusOnButtonYes();
+
+	      if (!this.allow) {
+	        e.preventDefault();
+	        e.stopPropagation();
+	        e.stopImmediatePropagation();
+	      }
 	    },
 	    popoverChange: function popoverChange(newShow) {
 	      if (!newShow && this.target != null) this.cancelEvent();else this.setFocusOnButtonYes();
 	    },
 	    setFocus: function setFocus(focusName, e) {
 	      this.localFocus = focusName;
-	    },
-	    clearFocus: function clearFocus(e) {
-	      this.localFocus = false;
 	    },
 	    setFocusOnButtonYes: function setFocusOnButtonYes() {
 	      var _this2 = this;
@@ -3913,8 +3913,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      },
 	      "blur": _vm.clearFocus
 	    }
-	  }, 'a', _vm.confirmationAttributes), [(_vm.yesIcon) ? _c('span', {
-	    class: _vm.yesIcon
+	  }, 'a', _vm.confirmationAttributes), [(_vm.buttonYesIcon) ? _c('span', {
+	    class: _vm.buttonYesIcon
 	  }) : _vm._e(), _vm._v(" " + _vm._s(_vm.messages.yes) + "\n    ")]), _vm._v(" "), _c('a', {
 	    ref: "buttonNo",
 	    staticClass: "btn btn-secondary",
@@ -3932,8 +3932,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      },
 	      "blur": _vm.clearFocus
 	    }
-	  }, [(_vm.noIcon) ? _c('span', {
-	    class: _vm.noIcon
+	  }, [(_vm.buttonNoIcon) ? _c('span', {
+	    class: _vm.buttonNoIcon
 	  }) : _vm._e(), _vm._v(" " + _vm._s(_vm.messages.no) + "\n    ")])])])
 	},staticRenderFns: []}
 
