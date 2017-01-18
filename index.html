@@ -42,28 +42,37 @@
     <h4>Getting Started</h4>
     <div class="row">
       <div class="col-md-12">
-        Click Confirm requires the following in your production environment:
+        Click Confirm depends on the following in your production environment:
         <table class="table table-bordered table-hover">
           <thead class="thead-default">
           <tr>
             <th>Dependency</th>
             <th>Version</th>
-            <th>Tested on</th>
+            <th>Tested with</th>
             <th>Notes</th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td><a href="https://vuejs.org/" target="_blank">VueJS</a></td>
+            <td><a href="https://vuejs.org" target="_blank">VueJS</a></td>
             <td>2.0+</td>
             <td>2.1.10</td>
             <td>Why else would you be here?</td>
           </tr>
           <tr>
-            <td><a href="https://v4-alpha.getbootstrap.com/"target="_blank">Bootstrap</a></td>
+            <td><a href="https://v4-alpha.getbootstrap.com" target="_blank">Bootstrap</a></td>
             <td>4.0.0 (alpha)</td>
             <td>4.0.0-alpha.6</td>
             <td>Uses CSS only, Bootstrap's Javascript package is not required.</td>
+          </tr>
+          <tr>
+            <td><a href="http://fontawesome.io" target="_blank">Font Awesome</a></td>
+            <td>4.0+</td>
+            <td>4.7</td>
+            <td>
+              This may be safely excluded in order to not show icons on the buttons, or may be replaced with another
+              icon typeset. See below.
+            </td>
           </tr>
           </tbody>
         </table>
@@ -71,7 +80,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        Click Confirm depends on <a href="https://bootstrap-vue.github.io/" target="_blank">Bootstrap Vue</a> for use of its Popover component. Don't worry, this component will be
+        Click Confirm depends on <a href="https://bootstrap-vue.github.io" target="_blank">Bootstrap Vue</a> for use of its Popover component. Don't worry, this component will be
         pulled in automatically if you are not already using it.
       </div>
     </div>
@@ -91,7 +100,7 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
       </div>
       <div class="col-md-4">
         If, for some reason, this is not an available option you can include the pre-bundled script, however this is
-        inefficient and not recommended for a production environment unless required.
+        inefficient and not recommended for a production environment.
       </div>
       <div class="col-md-8">
         <pre><code>import Vue from 'vue'
@@ -104,7 +113,7 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
     <h4 id="the-basics">The Basics</h4>
     <div class="row">
       <div class="col-md-12">
-        Click Confirmation will flexibly intercept any click events. This includes both native DOM events and VueJS
+        Click Confirm will flexibly intercept any click events. This includes both native DOM events and VueJS
         events. Any emitted 'click' events will be intercepted and re-transmitted if confirmed via the popup prompt.
       </div>
       <div class="col-md-4 text-center">
@@ -324,7 +333,7 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
     <h4>Button Icons</h4>
     <div class="row">
       <div class="col-md-12">
-        Click Confirmation ships configured to use Font Awesome's 'check' (for yes) and 'times' (for no) icons. You can
+        Click Confirm ships configured to use Font Awesome's 'check' (for yes) and 'times' (for no) icons. You can
         provide alternate CSS classes to apply to the button's 'span' element. Any other CSS-based icon library, such as
         Glyphicons, may also be used. In order to allow this, you must include all prefix class names required by your
         desired icon library.
@@ -398,7 +407,7 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
       </div>
     </div>
 
-    <h4>Custom CSS</h4>
+    <h4>Custom Appearance</h4>
     <div class="row">
       <div class="col-md-12">
         The Click Confirm popover is enclosed in a CSS element and class <code>"div.click-confirm"</code>. This allows you to customize the
