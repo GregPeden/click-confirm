@@ -43,7 +43,33 @@
         <pre><code>npm install click-confirm --save</code></pre>
       </div>
       <div class="col-md-12">
-        To use the component, you must either include the compiled JavaScript in your project, or the
+        The recommended use method is to include the ClickConfirm.vue file as part of your package generation.
+      </div>
+      <div class="col-md-6">
+        <h4>ES5</h4>
+        <pre><code>import Vue from 'vue'
+import ClickConfirm from 'click-confirm'
+
+new Vue({
+  el: '#app',
+  components: { ClickConfirm }
+  ...
+});</code></pre>
+      </div>
+      <div class="col-md-6">
+        <h4>ES6</h4>
+        <pre><code>import Vue from 'vue'
+import ClickConfirm from 'click-confirm/src/ClickConfirm.vue'
+
+new Vue({
+  el: '#app',
+  components: { ClickConfirm }
+  ...
+});</code></pre>
+      </div>
+      <div class="col-md-12">
+        If, for some reason, this is not an available option you can include the pre-bundled script, however this is
+        inefficient and not recommended for a production environment as this includes a number of dependencies.
       </div>
       <div class="col-md-12">
         Enclose your clickable element within the click-confirm tags. Any emitted 'click' events will be
@@ -286,6 +312,7 @@
         appearance using CSS scoped within this parent class. Please study the code on Github or a rendered example from
         above to learn how to target the desired elements.
       </div>
+    </div>
   </div>
 </div>
 

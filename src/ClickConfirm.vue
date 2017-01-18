@@ -1,10 +1,10 @@
 <template>
   <b-popover class="click-confirm" triggers="" :placement="placement" :title="messages.title" :show="target != null"
              @showChange="popoverChange" @focus="setFocus('popover')" @blur="clearFocus">
-        <span tabindex="-1" @click.capture="interceptEvent" @focus.capture="setFocus('target')"
-              @blur="clearFocus" ref="trigger">
-            <slot></slot>
-        </span>
+    <span tabindex="-1" @click.capture="interceptEvent" @focus.capture="setFocus('target')"
+          @blur="clearFocus" ref="trigger">
+      <slot></slot>
+    </span>
     <div class="text-center" slot="content">
       <a href="#" v-bind="confirmationAttributes" class="btn btn-primary" :class="buttonSizeClass"
          @click.prevent="confirmEvent" @focus="setFocus('buttonYes')" @blur="clearFocus" ref="buttonYes">

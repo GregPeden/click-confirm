@@ -6,7 +6,10 @@ module.exports = {
     root: path.join(__dirname, '../node_modules'),
   },
   resolve: {
-    extensions: ['', '.js', '.vue']
+    extensions: ['', '.js', '.vue'],
+    alias: {
+      vue: 'vue/dist/vue.common.js'
+    }
   },
   module: {
     loaders: [

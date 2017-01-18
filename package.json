@@ -19,7 +19,7 @@
   "scripts": {
     "test": "karma start ./test/karma.conf.js",
     "dev": "webpack-dev-server --inline --hot --config ./build/dev.js --port 8080",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/prod.js && npm run build:demo",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/prod.js && cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/prod-min.js && npm run build:demo",
     "build:demo": "cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/dev.js"
   },
   "keywords": [
