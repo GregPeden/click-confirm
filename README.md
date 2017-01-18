@@ -1,22 +1,27 @@
-# click-confirm
+# Click Confirm
 
-> Prompt user to confirm button click event before allowing the event to proceed.
+> Convenient and elegant inline user confirmation of UI events.
+
+## Dependencies
+- [VueJS](https://vuejs.org/) v2.0+
+- [Bootstrap](https://v4-alpha.getbootstrap.com/) v4 (tested on alpha 6)
 
 ## Build Setup
-
 ``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build the component to UMD js
-npm run build
-
-# build the dev page
-npm run build:demo
-
-# test
-npm run test
+npm install click-confirm --save
 ```
+
+## Basic Usage
+``` html
+<click-confirm>
+  <button class="btn btn-primary" @click="successAction">Click me</button>
+</click-confirm>
+```
+
+## Documentation
+See [Official documentation](https://sirlamer.github.io/click-confirm/) for detailed usage information.
+
+## Accreditations
+- This component relies on [Bootstrap Vue's](https://github.com/bootstrap-vue/bootstrap-vue) Popover component. If you
+are already using Bootstrap Vue, then Click Confirm is even lighter! Check it out.
+- Design and functionality is closely inspired by [Boostrap Confirmation](http://bootstrap-confirmation.js.org/).
