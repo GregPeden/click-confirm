@@ -22,6 +22,9 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/prod.js && cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/prod-min.js && npm run build:demo",
     "build:demo": "cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/dev.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "Bootstrap",
     "Bootstrap4",
