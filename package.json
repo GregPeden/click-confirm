@@ -6,7 +6,7 @@
     "email": "greg.j.peden@gmail.com",
     "url": "https://github.com/SirLamer"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./dist/click-confirm.js",
   "license": "MIT",
   "bugs": {
@@ -37,7 +37,7 @@
     "CSS"
   ],
   "dependencies": {
-    "bootstrap-vue": "^0.5.1",
+    "bootstrap-vue": "^0.7.0",
     "vue": "^2.1.8"
   },
   "devDependencies": {
