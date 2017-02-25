@@ -61,7 +61,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__vue_exports__ = __webpack_require__(40)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(77)
+	var __vue_template__ = __webpack_require__(78)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -684,10 +684,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    focus: { focus: 'show', blur: 'hide' }
 	};
 
-	// When using multiple event hooks, subsequent events within the defined timeframe, in milliseconds, will be ignored.
-	// Allows for safe stacking of similar event hooks without the popover flickering.
-	var debounceMilliseconds = 200;
-
 	exports.default = {
 	    replace: true,
 
@@ -696,7 +692,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            type: String,
 	            default: 'top',
 	            validator: function validator(value) {
-	                return ['top', 'bottom', 'left', 'right'].includes(value);
+	                return ['top', 'bottom', 'left', 'right'].indexOf(value) !== -1;
 	            }
 	        },
 	        triggers: {
@@ -706,24 +702,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            validator: function validator(value) {
 	                // Allow falsy value to disable all event triggers (equivalent to 'manual') in Bootstrap 4
-	                if (value === false) {
+	                if (value === false || value === '') {
 	                    return true;
 	                } else if (typeof value === 'string') {
-	                    return Object.keys(triggerListeners).includes(value);
+	                    return Object.keys(triggerListeners).indexOf(value) !== -1;
 	                } else if (Array.isArray(value)) {
-	                    var _ret = function () {
-	                        var keys = Object.keys(triggerListeners);
-	                        value.forEach(function (item) {
-	                            if (!keys.includes(item)) {
-	                                return false;
-	                            }
-	                        });
-	                        return {
-	                            v: true
-	                        };
-	                    }();
-
-	                    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	                    var keys = Object.keys(triggerListeners);
+	                    value.forEach(function (item) {
+	                        if (keys.indexOf(item) === -1) {
+	                            return false;
+	                        }
+	                    });
+	                    return true;
 	                }
 	                return false;
 	            }
@@ -765,6 +755,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 
 	                return false;
+	            }
+	        },
+	        debounce: {
+	            type: [Number],
+	            default: 100,
+	            validator: function validator(value) {
+	                return value >= 0;
 	            }
 	        }
 	    },
@@ -920,7 +917,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 	        eventHandler: function eventHandler(e) {
 	            // If this event is right after a previous successful event, ignore it
-	            if (this.useDebounce && this.lastEvent !== null && e.timeStamp <= this.lastEvent + debounceMilliseconds) {
+	            if (this.useDebounce && this.debounce > 0 && this.lastEvent !== null && e.timeStamp <= this.lastEvent + this.debounce) {
 	                return;
 	            }
 
@@ -932,7 +929,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        var action = triggerListeners[trigger][event];
 
 	                        // If the expected event action is the opposite of the current state, allow it
-	                        if (action === 'toggle' || this.showState && action === 'hide' || action === 'show') {
+	                        if (action === 'toggle' || this.showState && action === 'hide' || !this.showState && action === 'show') {
 	                            this.showState = !this.showState;
 	                            this.lastEvent = e.timeStamp;
 	                        }
@@ -958,14 +955,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            // Look for new events not yet mapped (all of them on first load)
 	            triggers.forEach(function (item) {
-	                if (!appliedTriggers.includes(item)) {
+	                if (appliedTriggers.indexOf(item) === -1) {
 	                    newTriggers.push(item);
 	                }
 	            });
 
 	            // Disable any removed event triggers
 	            appliedTriggers.forEach(function (item) {
-	                if (!triggers.includes(item)) {
+	                if (triggers.indexOf(item) === -1) {
 	                    removeTriggers.push(item);
 	                }
 	            });
@@ -3840,7 +3837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__vue_exports__ = __webpack_require__(39)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(78)
+	var __vue_template__ = __webpack_require__(77)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -3860,6 +3857,46 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 77 */
+/***/ function(module, exports) {
+
+	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+	  return _c('div', [_c('span', {
+	    ref: "trigger",
+	    staticClass: "popover-trigger"
+	  }, [_vm._t("default")], 2), _vm._v(" "), _c('div', {
+	    ref: "popover",
+	    class: ['popover', _vm.popoverAlignment],
+	    attrs: {
+	      "tabindex": "-1"
+	    },
+	    on: {
+	      "focus": function($event) {
+	        _vm.$emit('focus')
+	      },
+	      "blur": function($event) {
+	        _vm.$emit('blur')
+	      }
+	    }
+	  }, [_c('div', {
+	    staticClass: "popover-arrow"
+	  }), _vm._v(" "), (_vm.title) ? _c('h3', {
+	    staticClass: "popover-title",
+	    domProps: {
+	      "innerHTML": _vm._s(_vm.title)
+	    }
+	  }) : _vm._e(), _vm._v(" "), _c('div', {
+	    staticClass: "popover-content"
+	  }, [_c('div', {
+	    staticClass: "popover-content-wrapper"
+	  }, [_vm._t("content", [_c('span', {
+	    domProps: {
+	      "innerHTML": _vm._s(_vm.content)
+	    }
+	  })])], 2)])])])
+	},staticRenderFns: []}
+
+/***/ },
+/* 78 */
 /***/ function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -3934,46 +3971,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, [(_vm.buttonNoIcon) ? _c('span', {
 	    class: _vm.buttonNoIcon
 	  }) : _vm._e(), _vm._v(" " + _vm._s(_vm.messages.no) + "\n    ")])])])
-	},staticRenderFns: []}
-
-/***/ },
-/* 78 */
-/***/ function(module, exports) {
-
-	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-	  return _c('div', [_c('span', {
-	    ref: "trigger",
-	    staticClass: "popover-trigger"
-	  }, [_vm._t("default")], 2), _vm._v(" "), _c('div', {
-	    ref: "popover",
-	    class: ['popover', _vm.popoverAlignment],
-	    attrs: {
-	      "tabindex": "-1"
-	    },
-	    on: {
-	      "focus": function($event) {
-	        _vm.$emit('focus')
-	      },
-	      "blur": function($event) {
-	        _vm.$emit('blur')
-	      }
-	    }
-	  }, [_c('div', {
-	    staticClass: "popover-arrow"
-	  }), _vm._v(" "), (_vm.title) ? _c('h3', {
-	    staticClass: "popover-title",
-	    domProps: {
-	      "innerHTML": _vm._s(_vm.title)
-	    }
-	  }) : _vm._e(), _vm._v(" "), _c('div', {
-	    staticClass: "popover-content"
-	  }, [_c('div', {
-	    staticClass: "popover-content-wrapper"
-	  }, [_vm._t("content", [_c('span', {
-	    domProps: {
-	      "innerHTML": _vm._s(_vm.content)
-	    }
-	  })])], 2)])])])
 	},staticRenderFns: []}
 
 /***/ }
