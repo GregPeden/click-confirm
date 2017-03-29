@@ -6,7 +6,7 @@
     "email": "greg.j.peden@gmail.com",
     "url": "https://github.com/SirLamer"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./dist/click-confirm.js",
   "license": "MIT",
   "bugs": {
