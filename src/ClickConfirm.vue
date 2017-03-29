@@ -1,5 +1,5 @@
 <template>
-  <b-popover class="click-confirm" triggers="" :placement="placement" :title="messages.title" :show="target != null"
+  <b-popover class="click-confirm" triggers="" :placement="placement" :title="messages.title" :show="target !== null"
              @showChange="popoverChange" @focus="setFocus('popover')" @blur="clearFocus">
     <span tabindex="-1" @click.capture="interceptEvent" @focus.capture="setFocus('target')"
           @blur="clearFocus" ref="trigger">
@@ -116,18 +116,22 @@
       },
 
       confirmEvent() {
-        if (this.target != null) {
+        if (this.target !== null) {
           this.allow = true;
-          let cancelled = !this.target.dispatchEvent(new MouseEvent('click'));
-          this.allow = false;
-          if (cancelled)
+          const mouseClick = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            composed: true
+          });
+          if (!this.target.dispatchEvent(mouseClick))
             console.error('Confirmed event failed to dispatch');
+          this.allow = false;
         }
         this.cancelEvent();
       },
 
       interceptEvent(e) {
-        if (this.target == null)
+        if (this.target === null)
           this.target = e.target;
         else
           this.setFocusOnButtonYes();
@@ -140,7 +144,7 @@
       },
 
       popoverChange(newShow) {
-        if (!newShow && this.target != null)
+        if (!newShow && this.target !== null)
           this.cancelEvent();
         else
           this.setFocusOnButtonYes()

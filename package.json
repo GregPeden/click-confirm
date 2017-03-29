@@ -38,7 +38,7 @@
   ],
   "dependencies": {
     "bootstrap-vue": "^0.8.0",
-    "vue": "^2.1.8"
+    "vue": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
@@ -62,7 +62,8 @@
     "url-loader": "^0.5.7",
     "vue-hot-reload-api": "^2.0.7",
     "vue-html-loader": "^1.2.3",
-    "vue-loader": "9.9.0",
+    "vue-loader": "^11.0.0",
+    "vue-template-compiler": "^2.2.0",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
