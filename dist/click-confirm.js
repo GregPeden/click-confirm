@@ -1135,6 +1135,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            default: "fa fa-times"
 	        },
 
+	        buttonNoClass: {
+	            type: [String, Array, Object],
+	            default: "btn btn-secondary"
+	        },
+
 	        buttonSize: {
 	            type: String,
 	            default: "",
@@ -1146,6 +1151,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        buttonYesIcon: {
 	            type: [String, Array, Object],
 	            default: "fa fa-check"
+	        },
+
+	        buttonYesClass: {
+	            type: [String, Array, Object],
+	            default: "btn btn-primary"
 	        },
 
 	        copyAttributes: {
@@ -3978,8 +3988,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    slot: "content"
 	  }, [_c('a', _vm._b({
 	    ref: "buttonYes",
-	    staticClass: "btn btn-primary",
-	    class: _vm.buttonSizeClass,
+	    class: [_vm.buttonYesClass, _vm.buttonSizeClass],
 	    attrs: {
 	      "href": "#"
 	    },
@@ -3997,8 +4006,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    class: _vm.buttonYesIcon
 	  }) : _vm._e(), _vm._v(" " + _vm._s(_vm.messages.yes) + "\n    ")]), _vm._v(" "), _c('a', {
 	    ref: "buttonNo",
-	    staticClass: "btn btn-secondary",
-	    class: _vm.buttonSizeClass,
+	    class: [_vm.buttonNoClass, _vm.buttonSizeClass],
 	    attrs: {
 	      "href": "#"
 	    },
