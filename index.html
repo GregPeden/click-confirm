@@ -189,6 +189,12 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
             <td>Typeset icon visible within the 'No' button.</td>
           </tr>
           <tr>
+            <th scope="row"><code>button-no-class</code></th>
+            <td>String, Array, Object</td>
+            <td><code>"btn btn-secondary"</code></td>
+            <td>Class to use for the 'No' button, can be used for further styling.</td>
+          </tr>
+          <tr>
             <th scope="row"><code>button-size</code></th>
             <td><code>"sm"</code>, <code>""</code> (medium), or <code>"lg"</code></td>
             <td><code>""</code></td>
@@ -199,6 +205,12 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
             <td>String, Array, Object</td>
             <td><code>"fa fa-check"</code></td>
             <td>Typeset icon visible within the 'Yes' button.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>button-yes-class</code></th>
+            <td>String, Array, Object</td>
+            <td><code>"btn btn-primary"</code></td>
+            <td>Class to use for the 'Yes' button, can be used for further styling.</td>
           </tr>
           <tr>
             <th scope="row"><code>copy-attributes</code></th>
@@ -360,12 +372,43 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
   &lt;button class="btn btn-primary" @click="successAlert"&gt;Check and X (default)&lt;/button&gt;
 &lt;/click-confirm&gt;
 
-&lt;click-confirm yes-icon="fa fa-thumbs-up" no-icon="fa fa-thumbs-down"&gt;
+&lt;click-confirm button-yes-icon="fa fa-thumbs-up" button-no-icon="fa fa-thumbs-down"&gt;
   &lt;button class="btn btn-primary" @click="successAlert"&gt;All thumbs&lt;/button&gt;
 &lt;/click-confirm&gt;
 
-&lt;click-confirm yes-icon="fa fa-smile-o fa-spin" no-icon="fa fa-frown-o fa-spin"&gt;
+&lt;click-confirm button-yes-icon="fa fa-smile-o fa-spin" button-no-icon="fa fa-frown-o fa-spin"&gt;
   &lt;button class="btn btn-primary" @click="successAlert"&gt;Turn that frown upside-down&lt;/button&gt;
+&lt;/click-confirm&gt;</code></pre>
+      </div>
+    </div>
+
+    <h4>Button Classes</h4>
+    <div class="row">
+      <div class="col-md-12">
+        Click Confirm ships configured to use Bootstraps's 'btn-primary' (for yes) and 'btn-secondary' (for no) classes. You can
+        provide alternate CSS classes to apply to the button's 'a' element, thus allowing for more detailed styling of the buttons.
+        The styles provides will be merged with the 'button-size' classes, so the button size should not be included in this
+        property.
+      </div>
+      <div class="col-md-4 text-center">
+        <p>
+          <click-confirm>
+            <button class="btn btn-primary" @click="successAlert">btn-primary and btn-secondary (default)</button>
+          </click-confirm>
+        </p>
+        <p>
+          <click-confirm button-yes-class="btn btn-success" button-no-class="btn btn-danger">
+            <button class="btn btn-primary" @click="successAlert">Green and red buttons</button>
+          </click-confirm>
+        </p>
+      </div>
+      <div class="col-md-8">
+        <pre><code>&lt;click-confirm&gt;
+  &lt;button class="btn btn-primary" @click="successAlert"&gt;Check and X (default)&lt;/button&gt;
+&lt;/click-confirm&gt;
+
+&lt;click-confirm button-yes-class="btn btn-success" button-no-class="btn btn-danger"&gt;
+  &lt;button class="btn btn-primary" @click="successAlert"&gt;All thumbs&lt;/button&gt;
 &lt;/click-confirm&gt;</code></pre>
       </div>
     </div>
