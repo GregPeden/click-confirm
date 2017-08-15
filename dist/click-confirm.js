@@ -1185,6 +1185,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        },
 
+	        disabled: {
+	            type: Boolean,
+	            default: false
+	        },
+
 	        messages: {
 	            type: Object,
 	            default: function _default() {
@@ -1269,6 +1274,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.cancelEvent();
 	        },
 	        interceptEvent: function interceptEvent(e) {
+	            if (this.disabled) {
+	                return;
+	            }
+
 	            if (this.target === null) {
 	                this.target = e.target;
 	            }

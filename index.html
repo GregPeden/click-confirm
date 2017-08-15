@@ -198,6 +198,12 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
             </td>
           </tr>
           <tr>
+            <th scope="row"><code>disabled</code></th>
+            <td>Boolean</td>
+            <td><code>false</code></td>
+            <td>Suppresses the click-confirm dialogue and allows the click event to proceed as normal.</td>
+          </tr>
+          <tr>
             <th scope="row"><code>messages</code></th>
             <td>Object, formatted per Default</td>
             <td><code>{
@@ -446,6 +452,34 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
 
 &lt;click-confirm button-size="lg"&gt;
   &lt;button class="btn btn-primary" @click="successAlert"&gt;Large&lt;/button&gt;
+&lt;/click-confirm&gt;</code></pre>
+      </div>
+    </div>
+
+    <h4>Disable</h4>
+    <div class="row">
+      <div class="col-md-12">
+        The confirmation feature can be programmatically suppressed, which will allow the click event to proceed uninterrupted.
+      </div>
+      <div class="col-md-4 text-center">
+        <p>
+          <click-confirm>
+            <button class="btn btn-primary" @click="successAlert">Enabled (default)</button>
+          </click-confirm>
+        </p>
+        <p>
+          <click-confirm :disabled="true">
+            <button class="btn btn-primary" @click="successAlert">Disabled</button>
+          </click-confirm>
+        </p>
+      </div>
+      <div class="col-md-8">
+        <pre><code>&lt;click-confirm&gt;
+  &lt;button class="btn btn-primary" @click="successAlert"&gt;Enabled (default)&lt;/button&gt;
+&lt;/click-confirm&gt;
+
+&lt;click-confirm :disabled="true"&gt;
+  &lt;button class="btn btn-primary" @click="successAlert"&gt;Small&lt;/button&gt;
 &lt;/click-confirm&gt;</code></pre>
       </div>
     </div>

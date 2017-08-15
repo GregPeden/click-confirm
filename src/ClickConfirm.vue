@@ -58,6 +58,11 @@
                 }
             },
 
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+
             messages: {
                 type: Object,
                 default() {
@@ -147,6 +152,10 @@
             },
 
             interceptEvent(e) {
+                if (this.disabled) {
+                    return;
+                }
+
                 if (this.target === null) {
                     this.target = e.target;
                 }
