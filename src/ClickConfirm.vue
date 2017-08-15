@@ -7,13 +7,13 @@
       <slot></slot>
     </span>
     <div class="text-center" slot="content">
-      <a href="#" v-bind="confirmationAttributes" :class="[buttonYesClass, buttonSizeClass]"
+      <a href="#" v-bind="confirmationAttributes" :class="[yesClass, buttonSizeClass]"
          @click.prevent="confirmEvent" @focus="setFocus('buttonYes')" @blur="clearFocus" ref="buttonYes">
-        <span v-if="buttonYesIcon" :class="buttonYesIcon"></span> {{ messages.yes }}
+        <span v-if="yesIcon" :class="yesIcon"></span> {{ messages.yes }}
       </a>
-      <a href="#" :class="[buttonNoClass, buttonSizeClass]" @click.prevent="cancelEvent"
+      <a href="#" :class="[noClass, buttonSizeClass]" @click.prevent="cancelEvent"
          @focus="setFocus('buttonNo')" @blur="clearFocus" ref="buttonNo">
-        <span v-if="buttonNoIcon" :class="buttonNoIcon"></span> {{ messages.no }}
+        <span v-if="noIcon" :class="noIcon"></span> {{ messages.no }}
       </a>
     </div>
   </b-popover>
@@ -43,32 +43,12 @@
         },
 
         props: {
-            buttonNoIcon: {
-                type: [String, Array, Object],
-                default: "fa fa-times"
-            },
-
-            buttonNoClass: {
-                type: [String, Array, Object],
-                default: "btn btn-secondary"
-            },
-
             buttonSize: {
                 type: String,
                 default: "",
                 validator(value) {
                     return ['lg', '', 'sm'].includes(value);
                 }
-            },
-
-            buttonYesIcon: {
-                type: [String, Array, Object],
-                default: "fa fa-check"
-            },
-
-            buttonYesClass: {
-                type: [String, Array, Object],
-                default: "btn btn-primary"
             },
 
             copyAttributes: {
@@ -85,9 +65,29 @@
                 }
             },
 
+            noClass: {
+                type: [String, Array, Object],
+                default: "btn btn-secondary"
+            },
+
+            noIcon: {
+                type: [String, Array, Object],
+                default: "fa fa-times"
+            },
+
             placement: {
                 type: String,
                 default: 'top',
+            },
+
+            yesClass: {
+                type: [String, Array, Object],
+                default: "btn btn-primary"
+            },
+
+            yesIcon: {
+                type: [String, Array, Object],
+                default: "fa fa-check"
             }
         },
 
@@ -97,7 +97,7 @@
             },
 
             groupFocus() {
-                return this.localFocus != false;
+                return Boolean(this.localFocus) !== false;
             },
 
             messagesMerged() {

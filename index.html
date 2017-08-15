@@ -183,34 +183,10 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
           </thead>
           <tbody>
           <tr>
-            <th scope="row"><code>button-no-icon</code></th>
-            <td>String, Array, Object</td>
-            <td><code>"fa fa-times"</code></td>
-            <td>Typeset icon visible within the 'No' button.</td>
-          </tr>
-          <tr>
-            <th scope="row"><code>button-no-class</code></th>
-            <td>String, Array, Object</td>
-            <td><code>"btn btn-secondary"</code></td>
-            <td>Class to use for the 'No' button, can be used for further styling.</td>
-          </tr>
-          <tr>
             <th scope="row"><code>button-size</code></th>
             <td><code>"sm"</code>, <code>""</code> (medium), or <code>"lg"</code></td>
             <td><code>""</code></td>
             <td>Render size of confirmation buttons, per Bootstrap 4.</td>
-          </tr>
-          <tr>
-            <th scope="row"><code>button-yes-icon</code></th>
-            <td>String, Array, Object</td>
-            <td><code>"fa fa-check"</code></td>
-            <td>Typeset icon visible within the 'Yes' button.</td>
-          </tr>
-          <tr>
-            <th scope="row"><code>button-yes-class</code></th>
-            <td>String, Array, Object</td>
-            <td><code>"btn btn-primary"</code></td>
-            <td>Class to use for the 'Yes' button, can be used for further styling.</td>
           </tr>
           <tr>
             <th scope="row"><code>copy-attributes</code></th>
@@ -236,10 +212,34 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
             </td>
           </tr>
           <tr>
+            <th scope="row"><code>no-class</code></th>
+            <td>String, Array, Object</td>
+            <td><code>"btn btn-secondary"</code></td>
+            <td>Class to use for the 'No' button, can be used for further styling.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>no-icon</code></th>
+            <td>String, Array, Object</td>
+            <td><code>"fa fa-times"</code></td>
+            <td>Typeset icon visible within the 'No' button.</td>
+          </tr>
+          <tr>
             <th scope="row"><code>placement</code></th>
             <td><code>"top"</code>, <code>"bottom"</code>, <code>"left"</code>, or <code>"right"</code></td>
             <td><code>"top"</code></td>
             <td>Display location of the confirmation popover.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>yes-icon</code></th>
+            <td>String, Array, Object</td>
+            <td><code>"fa fa-check"</code></td>
+            <td>Typeset icon visible within the 'Yes' button.</td>
+          </tr>
+          <tr>
+            <th scope="row"><code>yes-class</code></th>
+            <td>String, Array, Object</td>
+            <td><code>"btn btn-primary"</code></td>
+            <td>Class to use for the 'Yes' button, can be used for further styling.</td>
           </tr>
           </tbody>
         </table>
@@ -357,12 +357,12 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
           </click-confirm>
         </p>
         <p>
-          <click-confirm button-yes-icon="fa fa-thumbs-up" button-no-icon="fa fa-thumbs-down">
+          <click-confirm yes-icon="fa fa-thumbs-up" no-icon="fa fa-thumbs-down">
             <button class="btn btn-primary" @click="successAlert">All thumbs</button>
           </click-confirm>
         </p>
         <p>
-          <click-confirm button-yes-icon="fa fa-smile-o fa-spin" button-no-icon="fa fa-frown-o fa-spin">
+          <click-confirm yes-icon="fa fa-smile-o fa-spin" no-icon="fa fa-frown-o fa-spin">
             <button class="btn btn-primary" @click="successAlert">Turn that frown upside-down</button>
           </click-confirm>
         </p>
@@ -372,11 +372,11 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
   &lt;button class="btn btn-primary" @click="successAlert"&gt;Check and X (default)&lt;/button&gt;
 &lt;/click-confirm&gt;
 
-&lt;click-confirm button-yes-icon="fa fa-thumbs-up" button-no-icon="fa fa-thumbs-down"&gt;
+&lt;click-confirm yes-icon="fa fa-thumbs-up" no-icon="fa fa-thumbs-down"&gt;
   &lt;button class="btn btn-primary" @click="successAlert"&gt;All thumbs&lt;/button&gt;
 &lt;/click-confirm&gt;
 
-&lt;click-confirm button-yes-icon="fa fa-smile-o fa-spin" button-no-icon="fa fa-frown-o fa-spin"&gt;
+&lt;click-confirm yes-icon="fa fa-smile-o fa-spin" no-icon="fa fa-frown-o fa-spin"&gt;
   &lt;button class="btn btn-primary" @click="successAlert"&gt;Turn that frown upside-down&lt;/button&gt;
 &lt;/click-confirm&gt;</code></pre>
       </div>
@@ -397,7 +397,7 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
           </click-confirm>
         </p>
         <p>
-          <click-confirm button-yes-class="btn btn-success" button-no-class="btn btn-danger">
+          <click-confirm yes-class="btn btn-success" no-class="btn btn-danger">
             <button class="btn btn-primary" @click="successAlert">Green and red buttons</button>
           </click-confirm>
         </p>
@@ -407,7 +407,7 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
   &lt;button class="btn btn-primary" @click="successAlert"&gt;Check and X (default)&lt;/button&gt;
 &lt;/click-confirm&gt;
 
-&lt;click-confirm button-yes-class="btn btn-success" button-no-class="btn btn-danger"&gt;
+&lt;click-confirm yes-class="btn btn-success" no-class="btn btn-danger"&gt;
   &lt;button class="btn btn-primary" @click="successAlert"&gt;All thumbs&lt;/button&gt;
 &lt;/click-confirm&gt;</code></pre>
       </div>
