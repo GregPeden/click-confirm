@@ -37,8 +37,8 @@
     "CSS"
   ],
   "dependencies": {
-    "bootstrap-vue": "^0.15.0",
-    "vue": "^2.2.0"
+    "bootstrap-vue": "^1.0.2",
+    "vue": "^2.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
@@ -64,7 +64,7 @@
     "vue-html-loader": "^1.2.3",
     "vue-loader": "^11.0.0",
     "vue-style-loader": "^1.0.0",
-    "vue-template-compiler": "^2.2.0",
+    "vue-template-compiler": "^2.5.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
   }

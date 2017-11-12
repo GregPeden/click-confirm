@@ -1,18 +1,18 @@
 <template>
   <b-popover class="click-confirm" :triggers="false" :placement="placement" :title="messages.title"
              :show="target !== null"
-             @focus="setFocus('popover')" @blur="clearFocus">
-    <span tabindex="-1" @click.capture="interceptEvent" @focus.capture="setFocus('target')"
-          @blur="clearFocus" ref="trigger">
+             @shown="setFocus('popover')" @hidden="clearFocus">
+    <span tabindex="-1" @click.capture="interceptEvent" @shown.capture="setFocus('target')"
+          @hidden="clearFocus" ref="trigger">
       <slot></slot>
     </span>
     <div class="text-center" slot="content">
       <a href="#" v-bind="confirmationAttributes" :class="[yesClass, buttonSizeClass]"
-         @click.prevent="confirmEvent" @focus="setFocus('buttonYes')" @blur="clearFocus" ref="buttonYes">
+         @click.prevent="confirmEvent" @shown="setFocus('buttonYes')" @hidden="clearFocus" ref="buttonYes">
         <span v-if="yesIcon" :class="yesIcon"></span> {{ messages.yes }}
       </a>
       <a href="#" :class="[noClass, buttonSizeClass]" @click.prevent="cancelEvent"
-         @focus="setFocus('buttonNo')" @blur="clearFocus" ref="buttonNo">
+         @shown="setFocus('buttonNo')" @hidden="clearFocus" ref="buttonNo">
         <span v-if="noIcon" :class="noIcon"></span> {{ messages.no }}
       </a>
     </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import Popover from 'bootstrap-vue/lib/components/popover.vue'
+    import bPopover from 'bootstrap-vue/es/components/popover/popover'
 
     const messagesDefault = {
         title: 'Are you sure?',
@@ -29,9 +29,7 @@
     };
 
     export default {
-        components: {
-            bPopover: Popover
-        },
+        components: { bPopover },
 
         data() {
             return {

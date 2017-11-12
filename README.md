@@ -4,7 +4,7 @@
 
 ## Dependencies
 - [VueJS](https://vuejs.org/) v2.0+
-- [Bootstrap](https://v4-alpha.getbootstrap.com/) v4 (tested on alpha 6)
+- [Bootstrap](https://v4-alpha.getbootstrap.com/) v4-beta.2
 - [Font Awesome](http://fontawesome.io/) v4 (optional, for displaying default button icons)
 
 ## Build Setup
