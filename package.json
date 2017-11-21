@@ -7,7 +7,7 @@
     "url": "https://github.com/SirLamer"
   },
   "version": "1.1.0",
-  "main": "./dist/click-confirm.js",
+  "main": "dist/click-confirm.common.js",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/SirLamer/click-confirm/issues"
@@ -17,10 +17,13 @@
     "url": "git+https://github.com/SirLamer/click-confirm.git"
   },
   "scripts": {
-    "test": "karma start ./test/karma.conf.js",
-    "dev": "webpack-dev-server --inline --hot --config ./build/dev.js --port 8080",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/prod.js && cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/prod-min.js && npm run build:demo",
-    "build:demo": "cross-env NODE_ENV=production webpack --progress --hide-modules --config ./build/dev.js"
+    "test": "echo 'no tests!' && npm run lint",
+    "prepublish": "npm run build",
+    "lint": "xo",
+    "build": "bili",
+    "build:example": "poi build",
+    "dev": "poi",
+    "deploy": "npm run build:example && gh-pages -d example/dist"
   },
   "publishConfig": {
     "access": "public"
@@ -36,36 +39,53 @@
     "Popover",
     "CSS"
   ],
-  "dependencies": {
-    "bootstrap-vue": "^1.0.2",
-    "vue": "^2.5.0"
+  "peerDependencies": {
+    "bootstrap-vue": ">= 1.2.0 < 2",
+    "vue": ">= 2.5.0 < 3"
   },
   "devDependencies": {
-    "babel-core": "^6.21.0",
-    "babel-loader": "^6.2.10",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-stage-2": "^6.18.0",
-    "cross-env": "^3.1.4",
-    "css-loader": "^0.26.1",
-    "file-loader": "^0.9.0",
-    "json-loader": "^0.5.4",
-    "karma": "^1.3.0",
-    "karma-mocha": "^1.3.0",
-    "karma-phantomjs-launcher": "^1.0.2",
-    "karma-spec-reporter": "0.0.26",
-    "karma-webpack": "^1.8.1",
-    "mocha": "^3.2.0",
-    "phantomjs-prebuilt": "^2.1.14",
-    "postcss-loader": "^1.2.2",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "vue-hot-reload-api": "^2.0.7",
-    "vue-html-loader": "^1.2.3",
-    "vue-loader": "^11.0.0",
-    "vue-style-loader": "^1.0.0",
-    "vue-template-compiler": "^2.5.0",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.2"
+    "bili": "^0.18.2",
+    "bootstrap-vue": "^1.2.0",
+    "eslint-config-rem": "^3.0.0",
+    "gh-pages": "^1.0.0",
+    "poi": "^9.5.0",
+    "rollup-plugin-vue": "^2.5.2",
+    "vue": "2.5.3",
+    "vue-template-compiler": "2.5.3",
+    "xo": "^0.18.0"
+  },
+  "unpkg": "dist/click-confirm",
+  "poi": {
+    "entry": "dev/main.js",
+    "dist": "dev/dist",
+    "homepage": "/click-confirm/",
+    "html": {
+      "template": "docs/index.html"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "xo": {
+    "extends": "rem/prettier",
+    "ignores": [
+      "dev/**"
+    ]
+  },
+  "bili": {
+    "format": [
+      "cjs",
+      "umd",
+      "es"
+    ],
+    "plugins": [
+      "vue"
+    ],
+    "external": [
+      "bootstrap-vue",
+      "vue"
+    ],
+    "exports": "named",
+    "compress": true
   }
 }
