@@ -214,11 +214,9 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
             </tr>
             <tr>
               <th scope="row"><code>placement</code></th>
-              <td>
-                Per <a href="https://bootstrap-vue.js.org/docs/components/popover#positioning" target="_blank">Bootstrap-vue docs</a>
-              </td>
+              <td>String</td>
               <td><code>"top"</code></td>
-              <td>Display location of the confirmation popover.</td>
+              <td>Display location of the confirmation popover per <a href="https://bootstrap-vue.js.org/docs/components/popover#positioning" target="_blank">Bootstrap-Vue docs</a>.</td>
             </tr>
             <tr>
               <th scope="row"><code>yes-icon</code></th>
