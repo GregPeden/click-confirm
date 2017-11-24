@@ -113,10 +113,9 @@ var component$1 = {render: function(){var _vm=this;var _h=_vm.$createElement;var
 
             this.target = e.target;
 
-            this.isOpen = true;
-            //this.setFocusOnButtonYes();
-
             if (!this.allow) {
+                this.isOpen = true;
+                this.setFocusOnButtonYes();
                 e.preventDefault();
                 e.stopPropagation();
                 e.stopImmediatePropagation();
@@ -127,7 +126,11 @@ var component$1 = {render: function(){var _vm=this;var _h=_vm.$createElement;var
             var this$1 = this;
 
             this.$nextTick(function () {
-                this$1.$refs.buttonYes.focus();
+                this$1.$nextTick(function () {
+                    if (this$1.isOpen) {
+                        this$1.$refs.buttonYes.focus();
+                    }
+                });
             });
         }
     },

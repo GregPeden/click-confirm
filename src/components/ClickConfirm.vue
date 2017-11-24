@@ -148,10 +148,9 @@
 
                 this.target = e.target;
 
-                this.isOpen = true;
-                //this.setFocusOnButtonYes();
-
                 if (!this.allow) {
+                    this.isOpen = true;
+                    this.setFocusOnButtonYes();
                     e.preventDefault();
                     e.stopPropagation();
                     e.stopImmediatePropagation();
@@ -160,7 +159,11 @@
 
             setFocusOnButtonYes() {
                 this.$nextTick(() => {
-                    this.$refs.buttonYes.focus();
+                    this.$nextTick(() => {
+                        if (this.isOpen) {
+                            this.$refs.buttonYes.focus();
+                        }
+                    });
                 });
             }
         },
