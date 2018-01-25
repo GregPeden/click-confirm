@@ -39,13 +39,13 @@
             <tr>
               <td><a href="https://vuejs.org" target="_blank">VueJS</a></td>
               <td>2.0+</td>
-              <td>2.1.10</td>
+              <td>2.5.13</td>
               <td>Why else would you be here?</td>
             </tr>
             <tr>
               <td><a href="https://v4-alpha.getbootstrap.com" target="_blank">Bootstrap</a></td>
               <td>4.0.0 (alpha)</td>
-              <td>4.0.0-alpha.6</td>
+              <td>4.0.0</td>
               <td>Uses CSS only, Bootstrap's Javascript package is not required.</td>
             </tr>
             <tr>

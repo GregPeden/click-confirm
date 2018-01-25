@@ -40,18 +40,18 @@
     "CSS"
   ],
   "peerDependencies": {
-    "bootstrap-vue": ">= 1.2.0 < 2",
+    "bootstrap-vue": ">= 1.2.0 <= 2",
     "vue": ">= 2.5.0 < 3"
   },
   "devDependencies": {
     "bili": "^0.18.2",
-    "bootstrap-vue": "^1.2.0",
+    "bootstrap-vue": "^2.0.0-rc.0",
     "eslint-config-rem": "^3.0.0",
     "gh-pages": "^1.0.0",
     "poi": "^9.5.0",
     "rollup-plugin-vue": "^2.5.2",
-    "vue": "2.5.3",
-    "vue-template-compiler": "2.5.3",
+    "vue": "^2.5.3",
+    "vue-template-compiler": "^2.5.3",
     "xo": "^0.18.0"
   },
   "unpkg": "dist/click-confirm",

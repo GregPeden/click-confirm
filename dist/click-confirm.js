@@ -2760,7 +2760,9 @@ var matches = function matches(el, selector) {
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
   // Prefer native implementations over polyfill function
   var proto = Element.prototype;
-  var Matches = proto.matches || proto.matchesSelector || proto.mozMatchesSelector || proto.msMatchesSelector || proto.oMatchesSelector || proto.webkitMatchesSelector || function (sel) {
+  var Matches = proto.matches || proto.matchesSelector || proto.mozMatchesSelector || proto.msMatchesSelector || proto.oMatchesSelector || proto.webkitMatchesSelector ||
+  /* istanbul ignore next */
+  function (sel) {
     var element = this;
     var m = selectAll(sel, element.document || element.ownerDocument);
     var i = m.length;
@@ -2781,7 +2783,9 @@ var closest = function closest(selector, root) {
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
   // Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
   // Prefer native implementation over polyfill function
-  var Closest = Element.prototype.closest || function (sel) {
+  var Closest = Element.prototype.closest ||
+  /* istanbul ignore next */
+  function (sel) {
     var element = this;
     if (!document.documentElement.contains(element)) {
       return null;
@@ -2895,9 +2899,10 @@ var BSCLS_PREFIX_REGEX$1 = new RegExp('\\b' + CLASS_PREFIX$1 + '\\S+', 'g');
 
 var TRANSITION_DURATION = 150;
 
-// Modal $root event (prepare for future evnt name change)
+// Modal $root hidden event
 var MODAL_CLOSE_EVENT = 'bv::modal::hidden';
-var MODAL_CLASS = '.modal';
+// Modal container for appending tip/popover
+var MODAL_CLASS = '.modal-content';
 
 var AttachmentMap = {
   AUTO: 'auto',
@@ -2967,7 +2972,8 @@ var Selector$1 = {
   arrowPadding: 6,
   container: false,
   fallbackPlacement: 'flip',
-  callbacks: {}
+  callbacks: {},
+  boundary: 'scrollParent'
 
   // Transition Event names
 };var TransitionEndEvents = {
@@ -2980,6 +2986,7 @@ var Selector$1 = {
   // Could use Alex's uid generator util
   // Each tooltip requires a unique client side ID
 };var NEXTID = 1;
+/* istanbul ignore next */
 function generateId(name) {
   return '__BV_' + name + '_' + NEXTID++ + '__';
 }
@@ -2987,6 +2994,7 @@ function generateId(name) {
 /*
  * ToolTip Class definition
  */
+/* istanbul ignore next: difficult to test in Jest/JSDOM environment */
 
 var ToolTip = function () {
   // Main constructor
@@ -2994,6 +3002,7 @@ var ToolTip = function () {
     _classCallCheck$1(this, ToolTip);
 
     // New tooltip object
+    this.$isEnabled = true;
     this.$fadeTimeout = null;
     this.$hoverTimeout = null;
     this.$visibleInterval = null;
@@ -3005,10 +3014,12 @@ var ToolTip = function () {
     this.$id = generateId(this.constructor.NAME);
     this.$root = $root || null;
     this.$routeWatcher = null;
-    // We keep a bound copy of the forceHide, doHide and doShow methods for root/modal listeners
+    // We use a bound version of the following handlers for root/modal listeners to maintain the 'this' context
     this.$forceHide = this.forceHide.bind(this);
     this.$doHide = this.doHide.bind(this);
     this.$doShow = this.doShow.bind(this);
+    this.$doDisable = this.doDisable.bind(this);
+    this.$doEnable = this.doEnable.bind(this);
     // Set the configuration
     this.updateConfig(config);
   }
@@ -3078,6 +3089,7 @@ var ToolTip = function () {
       this.$tip = null;
       // Null out other properties
       this.$id = null;
+      this.$isEnabled = null;
       this.$root = null;
       this.$element = null;
       this.$config = null;
@@ -3086,6 +3098,32 @@ var ToolTip = function () {
       this.$forceHide = null;
       this.$doHide = null;
       this.$doShow = null;
+      this.$doDisable = null;
+      this.$doEnable = null;
+    }
+  }, {
+    key: 'enable',
+    value: function enable() {
+      // Create a non-cancelable BvEvent
+      var enabledEvt = new BvEvent('enabled', {
+        cancelable: false,
+        target: this.$element,
+        relatedTarget: null
+      });
+      this.$isEnabled = true;
+      this.emitEvent(enabledEvt);
+    }
+  }, {
+    key: 'disable',
+    value: function disable() {
+      // Create a non-cancelable BvEvent
+      var disabledEvt = new BvEvent('disabled', {
+        cancelable: false,
+        target: this.$element,
+        relatedTarget: null
+      });
+      this.$isEnabled = false;
+      this.emitEvent(disabledEvt);
     }
 
     // Click toggler
@@ -3093,6 +3131,9 @@ var ToolTip = function () {
   }, {
     key: 'toggle',
     value: function toggle(event) {
+      if (!this.$isEnabled) {
+        return;
+      }
       if (event) {
         this.$activeTrigger.click = !this.$activeTrigger.click;
 
@@ -3121,7 +3162,6 @@ var ToolTip = function () {
         // If trigger element isn't in the DOM or is not visible
         return;
       }
-
       // Build tooltip element (also sets this.$tip)
       var tip = this.getTipElement();
       this.fixTitle();
@@ -3282,6 +3322,7 @@ var ToolTip = function () {
       }
 
       // Transitionend Callback
+      /* istanbul ignore next */
       var complete = function complete() {
         if (_this3.$hoverState !== HoverState.SHOW && tip.parentNode) {
           // Remove tip from dom, and force recompile on next show
@@ -3379,6 +3420,9 @@ var ToolTip = function () {
       }
       this.$popper = null;
     }
+
+    /* istanbul ignore next */
+
   }, {
     key: 'transitionOnce',
     value: function transitionOnce(tip, complete) {
@@ -3575,8 +3619,8 @@ var ToolTip = function () {
         eventOff(_this7.$element, evt, _this7);
       }, this);
 
-      // Stop listening for global show/hide events
-      this.setRootListener(true);
+      // Stop listening for global show/hide/enable/disable events
+      this.setRootListener(false);
     }
   }, {
     key: 'handleEvent',
@@ -3585,6 +3629,10 @@ var ToolTip = function () {
       if (isDisabled(this.$element)) {
         // If disabled, don't do anything. Note: if tip is shown before element gets
         // disabled, then tip not close until no longer disabled or forcefully closed.
+        return;
+      }
+      if (!this.$isEnabled) {
+        // If not enable
         return;
       }
       var type = e.type;
@@ -3621,6 +3669,9 @@ var ToolTip = function () {
         this.leave(e);
       }
     }
+
+    /* istanbul ignore next */
+
   }, {
     key: 'setRouteWatcher',
     value: function setRouteWatcher(on) {
@@ -3645,6 +3696,9 @@ var ToolTip = function () {
         }
       }
     }
+
+    /* istanbul ignore next */
+
   }, {
     key: 'setModalListener',
     value: function setModalListener(on) {
@@ -3658,6 +3712,9 @@ var ToolTip = function () {
         this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.$forceHide);
       }
     }
+
+    /* istanbul ignore next */
+
   }, {
     key: 'setRootListener',
     value: function setRootListener(on) {
@@ -3665,14 +3722,16 @@ var ToolTip = function () {
       if (this.$root) {
         this.$root[on ? '$on' : '$off']('bv::hide::' + this.constructor.NAME, this.$doHide);
         this.$root[on ? '$on' : '$off']('bv::show::' + this.constructor.NAME, this.$doShow);
+        this.$root[on ? '$on' : '$off']('bv::disable::' + this.constructor.NAME, this.$doDisable);
+        this.$root[on ? '$on' : '$off']('bv::enable::' + this.constructor.NAME, this.$doEnable);
       }
     }
   }, {
     key: 'doHide',
     value: function doHide(id) {
-      // Programmatically hide this tooltip or popover
+      // Programmatically hide tooltip or popover
       if (!id) {
-        // Close all tooltip or popovers
+        // Close all tooltips or popovers
         this.forceHide();
       } else if (this.$element && this.$element.id && this.$element.id === id) {
         // Close this specific tooltip or popover
@@ -3682,11 +3741,42 @@ var ToolTip = function () {
   }, {
     key: 'doShow',
     value: function doShow(id) {
-      // Programmatically show this tooltip or popover
-      if (id && this.$element && this.$element.id && this.$element.id === id) {
+      // Programmatically show tooltip or popover
+      if (!id) {
+        // Open all tooltips or popovers
+        this.show();
+      } else if (id && this.$element && this.$element.id && this.$element.id === id) {
+        // Show this specific tooltip or popover
         this.show();
       }
     }
+  }, {
+    key: 'doDisable',
+    value: function doDisable(id) {
+      // Programmatically disable tooltip or popover
+      if (!id) {
+        // Disable all tooltips or popovers
+        this.disable();
+      } else if (this.$element && this.$element.id && this.$element.id === id) {
+        // Disable this specific tooltip or popover
+        this.disable();
+      }
+    }
+  }, {
+    key: 'doEnable',
+    value: function doEnable(id) {
+      // Programmatically enable tooltip or popover
+      if (!id) {
+        // Enable all tooltips or popovers
+        this.enable();
+      } else if (this.$element && this.$element.id && this.$element.id === id) {
+        // Enable this specific tooltip or popover
+        this.enable();
+      }
+    }
+
+    /* istanbul ignore next */
+
   }, {
     key: 'setOnTouchStartListener',
     value: function setOnTouchStartListener(on) {
@@ -3706,6 +3796,9 @@ var ToolTip = function () {
         });
       }
     }
+
+    /* istanbul ignore next */
+
   }, {
     key: '_noop',
     value: function _noop() {
@@ -3723,6 +3816,7 @@ var ToolTip = function () {
     }
 
     // Enter handler
+    /* istanbul ignore next */
 
   }, {
     key: 'enter',
@@ -3750,6 +3844,7 @@ var ToolTip = function () {
     }
 
     // Leave handler
+    /* istanbul ignore next */
 
   }, {
     key: 'leave',
@@ -3789,7 +3884,8 @@ var ToolTip = function () {
         modifiers: {
           offset: { offset: this.getOffset(placement, tip) },
           flip: { behavior: this.$config.fallbackPlacement },
-          arrow: { element: '.arrow' }
+          arrow: { element: '.arrow' },
+          preventOverflow: { boundariesElement: this.$config.boundary }
         },
         onCreate: function onCreate(data) {
           // Handle flipping arrow classes
@@ -3926,8 +4022,9 @@ var ClassName = {
 var Selector = {
   TITLE: '.popover-header',
   CONTENT: '.popover-body'
-};
 
+  /* istanbul ignore next: dificult to test in Jest/JSDOM environment */
+};
 var PopOver = function (_ToolTip) {
   _inherits(PopOver, _ToolTip);
 
@@ -4054,8 +4151,6 @@ var PopOver = function (_ToolTip) {
  * @param {string} str
  */
 
-"use strict";
-
 /**
  * Observe a DOM element changes, falls back to eventListener mode
  * @param {Element} el The DOM element to observe
@@ -4069,6 +4164,7 @@ function observeDOM(el, callback, opts) {
 
   // Handle case where we might be passed a vue instance
   el = el ? el.$el || el : null;
+  /* istanbul ignore next: dificult to test in JSDOM */
   if (!isElement(el)) {
     // We can't observe somthing that isn't an element
     return null;
@@ -4076,6 +4172,7 @@ function observeDOM(el, callback, opts) {
 
   var obs = null;
 
+  /* istanbul ignore next: dificult to test in JSDOM */
   if (MutationObserver) {
     // Define a new observer
     obs = new MutationObserver(function (mutations) {
@@ -4157,10 +4254,29 @@ function observeDOM(el, callback, opts) {
  * @param {object} Plugin definition
  */
 
+/*
+ * Consitant and stable sort function across JavsaScript platforms
+ *
+ * Inconsistant sorts can cause SSR problems between client and server
+ * such as in <b-table> if sortBy is applied to the data on server side render.
+ * Chrome and V8 native sorts are inconsistant/unstable
+ *
+ * This function uses native sort with fallback to index compare when the a and b
+ * compare returns 0
+ *
+ * Algorithm bsaed on:
+ * https://stackoverflow.com/questions/1427608/fast-stable-sorting-algorithm-implementation-in-javascript/45422645#45422645
+ *
+ * @param {array} array to sort
+ * @param {function} sortcompare function
+ * @return {array}
+ */
+
 /**
  * Log a warning message to the console with bootstrap-vue formatting sugar.
  * @param {string} message
  */
+/* istanbul ignore next */
 function warn(message) {
   console.warn("[Bootstrap-Vue warn]: " + message);
 }
@@ -4257,7 +4373,17 @@ var toolpopMixin = {
       type: String,
       default: null
     },
+    boundary: {
+      // String: scrollParent, window, or viewport
+      // Element: element reference
+      type: [String, Object],
+      default: 'scrollParent'
+    },
     show: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     }
@@ -4267,8 +4393,13 @@ var toolpopMixin = {
       if (_show === old) {
         return;
       }
-
       _show ? this.onOpen() : this.onClose();
+    },
+    disabled: function disabled(_disabled, old) {
+      if (_disabled === old) {
+        return;
+      }
+      _disabled ? this.onDisable() : this.onEnable();
     }
   },
   created: function created() {
@@ -4280,16 +4411,23 @@ var toolpopMixin = {
   mounted: function mounted() {
     var _this = this;
 
-    // We do this in a $nextTick in hopes that the target element is in the DOM
-    // And that our children have rendered
+    // We do this in a next tick to ensure DOM has rendered first
     this.$nextTick(function () {
       // Instantiate ToolTip/PopOver on target
-      // createToolpop method must exist in main component
+      // The createToolpop method must exist in main component
       if (_this.createToolpop()) {
+        if (_this.disabled) {
+          // Initially disabled
+          _this.onDisable();
+        }
         // Listen to open signals from others
         _this.$on('open', _this.onOpen);
         // Listen to close signals from others
         _this.$on('close', _this.onClose);
+        // Listen to disable signals from others
+        _this.$on('disable', _this.onDisable);
+        // Listen to disable signals from others
+        _this.$on('enable', _this.onEnable);
         // Observe content Child changes so we can notify popper of possible size change
         _this.setObservers(true);
         // Set intially open state
@@ -4305,10 +4443,14 @@ var toolpopMixin = {
       this._toolpop.updateConfig(this.getConfig());
     }
   },
+
+  /* istanbul ignore next: not easy to test */
   activated: function activated() {
     // Called when component is inside a <keep-alive> and component brought offline
     this.setObservers(true);
   },
+
+  /* istanbul ignore next: not easy to test */
   deactivated: function deactivated() {
     // Called when component is inside a <keep-alive> and component taken offline
     if (this._toolpop) {
@@ -4316,15 +4458,21 @@ var toolpopMixin = {
       this._toolpop.hide();
     }
   },
+
+  /* istanbul ignore next: not easy to test */
   beforeDestroy: function beforeDestroy() {
+    // Shutdown our local event listeners
+    this.$off('open', this.onOpen);
     this.$off('close', this.onClose);
+    this.$off('disable', this.onDisable);
+    this.$off('enable', this.onEnable);
     this.setObservers(false);
+    // bring our content back if needed
+    this.bringItBack();
     if (this._toolpop) {
       this._toolpop.destroy();
       this._toolpop = null;
     }
-    // bring our content back if needed
-    this.bringItBack();
   },
 
   computed: {
@@ -4340,6 +4488,8 @@ var toolpopMixin = {
         placement: PLACEMENTS[this.placement] || 'auto',
         // Container curently needs to be an ID with '#' prepended, if null then body is used
         container: cont ? /^#/.test(cont) ? cont : '#' + cont : false,
+        // boundariesElement passed to popper
+        boundary: this.boundary,
         // Show/Hide delay
         delay: delay || 0,
         // Offset can be css distance. if no units, pixels are assumed
@@ -4353,7 +4503,9 @@ var toolpopMixin = {
           show: this.onShow,
           shown: this.onShown,
           hide: this.onHide,
-          hidden: this.onHidden
+          hidden: this.onHidden,
+          enabled: this.onEnabled,
+          disabled: this.onDisabled
         }
       };
     }
@@ -4385,6 +4537,16 @@ var toolpopMixin = {
         this._toolpop.hide(callback);
       } else if (typeof callback === 'function') {
         callback();
+      }
+    },
+    onDisable: function onDisable() {
+      if (this._toolpop) {
+        this._toolpop.disable();
+      }
+    },
+    onEnable: function onEnable() {
+      if (this._toolpop) {
+        this._toolpop.enable();
       }
     },
     updatePosition: function updatePosition() {
@@ -4426,6 +4588,22 @@ var toolpopMixin = {
       this.$emit('update:show', false);
       this.$emit('hidden', evt);
     },
+    onEnabled: function onEnabled(evt) {
+      if (!evt || evt.type !== 'enabled') {
+        // Prevent possible endless loop if user mistakienly fires enabled instead of enable
+        return;
+      }
+      this.$emit('update:disabled', false);
+      this.$emit('disabled');
+    },
+    onDisabled: function onDisabled(evt) {
+      if (!evt || evt.type !== 'disabled') {
+        // Prevent possible endless loop if user mistakienly fires disabled instead of disable
+        return;
+      }
+      this.$emit('update:disabled', true);
+      this.$emit('enabled');
+    },
     bringItBack: function bringItBack() {
       // bring our content back if needed to keep Vue happy
       if (this.$el && this.$refs.title) {
@@ -4435,6 +4613,8 @@ var toolpopMixin = {
         this.$el.appendChild(this.$refs.content);
       }
     },
+
+    /* istanbul ignore next: not easy to test */
     setObservers: function setObservers(on) {
       if (on) {
         if (this.$refs.title) {
