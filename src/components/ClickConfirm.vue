@@ -116,6 +116,14 @@
             }
         },
 
+        watch: {
+            disabled(newValue) {
+                if (newValue && this.isOpen) {
+                    this.onCancel();
+                }
+            }
+        },
+
         methods: {
             onHidden() {
                 this.target = null;

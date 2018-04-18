@@ -75,6 +75,14 @@ var component$1 = {render: function(){var _vm=this;var _h=_vm.$createElement;var
         }
     },
 
+    watch: {
+        disabled: function disabled(newValue) {
+            if (newValue && this.isOpen) {
+                this.onCancel();
+            }
+        }
+    },
+
     methods: {
         onHidden: function onHidden() {
             this.target = null;

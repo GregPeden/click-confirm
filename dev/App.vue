@@ -184,7 +184,10 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
               <th scope="row"><code>disabled</code></th>
               <td>Boolean</td>
               <td><code>false</code></td>
-              <td>Suppresses the click-confirm dialogue and allows the click event to proceed as normal.</td>
+              <td>
+                Suppresses the click-confirm dialogue and allows the click event to proceed as normal. If set to 'true'
+                while the Click Confirm popover it being displayed, the popover will be suppressed.
+              </td>
             </tr>
             <tr>
               <th scope="row"><code>messages</code></th>
