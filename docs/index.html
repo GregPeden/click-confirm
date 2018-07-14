@@ -17,6 +17,10 @@
   >
   <link rel="stylesheet" href="../dev/style.css">
   <script src="https://use.fontawesome.com/d7ea8272b5.js"></script>
+
+  <% if (htmlWebpackPlugin.options.description) { %>
+  <meta name="description" content="<%= htmlWebpackPlugin.options.description %>"/>
+  <% } %>
 </head>
 
 <body>

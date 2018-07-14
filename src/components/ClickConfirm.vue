@@ -24,14 +24,14 @@
             @click.prevent="onOk"
             ref="buttonYes"
         >
-          <span v-if="yesIcon" :class="yesIcon" aria-hidden="true"></span> {{ messages.yes }}
+          <slot name="confirm-yes-icon"><span v-if="yesIcon" :class="yesIcon" aria-hidden="true"></span></slot> {{ messages.yes }}
         </button>
         <button
             :class="[noClass, buttonSizeClass]"
             @click.prevent="onCancel"
             ref="buttonNo"
         >
-          <span v-if="noIcon" :class="noIcon" aria-hidden="true"></span> {{ messages.no }}
+          <slot name="confirm-no-icon"><span v-if="noIcon" :class="noIcon" aria-hidden="true"></span></slot> {{ messages.no }}
         </button>
       </div>
     </b-popover>

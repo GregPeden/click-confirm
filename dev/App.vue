@@ -2,7 +2,8 @@
   <div id="app">
     <div class="container">
       <h1>Click Confirm</h1>
-      <h3>Convenient and elegant inline user confirmation of UI events.</h3>
+      <p class="lead">Convenient and elegant inline user confirmation of UI events.</p>
+
       <div class="row">
         <div class="col-md-6 text-center">
           <click-confirm placement="bottom">
@@ -13,70 +14,70 @@
           <h4><a href="https://github.com/SirLamer/click-confirm">View on GitHub</a></h4>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          This VueJS component prompts a user to confirm a click action as deliberate before allowing the event to
-          proceed. The component wraps around any nested clickable element and intercepts any click event with a prompt
-          request. The prompt appears immediately adjacent to the button without otherwise interrupting the page, making
-          the experience faster and more comfortable for the user than a typical Javascript prompt.
-        </div>
-      </div>
+
+      <p>
+        This VueJS component prompts a user to confirm a click action as deliberate before allowing the event to
+        proceed. The component wraps around any nested clickable element and intercepts any click event with a prompt
+        request. The prompt appears immediately adjacent to the button without otherwise interrupting the page, making
+        the experience faster and more comfortable for the user than a typical Javascript prompt.
+      </p>
 
       <h4>Getting Started</h4>
-      <div class="row">
-        <div class="col-md-12">
-          Click Confirm depends on the following in your production environment:
-          <table class="table table-bordered table-hover">
-            <thead class="thead-default">
-            <tr>
-              <th>Dependency</th>
-              <th>Version</th>
-              <th>Tested with</th>
-              <th>Notes</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td><a href="https://vuejs.org" target="_blank">VueJS</a></td>
-              <td>2.0+</td>
-              <td>2.5.13</td>
-              <td>Why else would you be here?</td>
-            </tr>
-            <tr>
-              <td><a href="https://v4-alpha.getbootstrap.com" target="_blank">Bootstrap</a></td>
-              <td>4.0.0 (alpha)</td>
-              <td>4.0.0</td>
-              <td>Uses CSS only, Bootstrap's Javascript package is not required.</td>
-            </tr>
-            <tr>
-              <td><a href="http://fontawesome.io" target="_blank">Font Awesome</a></td>
-              <td>4.0+</td>
-              <td>4.7</td>
-              <td>
-                This may be safely excluded in order to not show icons on the buttons, or may be replaced with another
-                icon typeset. See below.
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          Click Confirm depends on <a href="https://bootstrap-vue.github.io" target="_blank">Bootstrap Vue</a> for use of its Popover component. Don't worry, this component will be
-          pulled in automatically if you are not already using it.
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
+      <p>Click Confirm depends on the following in your production environment:</p>
+      <table class="table table-bordered table-hover">
+        <thead class="thead-default">
+        <tr>
+          <th>Dependency</th>
+          <th>Version</th>
+          <th>Tested with</th>
+          <th>Notes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><a href="https://vuejs.org" target="_blank">VueJS</a></td>
+          <td>2.0+</td>
+          <td>2.5.16</td>
+          <td>Why else would you be here?</td>
+        </tr>
+        <tr>
+          <td><a href="https://v4-alpha.getbootstrap.com" target="_blank">Bootstrap</a></td>
+          <td>4.0.0 (alpha)</td>
+          <td>4.0.0-dev.11</td>
+          <td>Uses CSS only, Bootstrap's Javascript package is not required.</td>
+        </tr>
+        <tr>
+          <td><a href="http://fontawesome.io" target="_blank">Font Awesome</a></td>
+          <td>4.0+, 5.0+</td>
+          <td>4.7</td>
+          <td>
+            This may be safely excluded in order to not show icons on the buttons, or may be replaced with another
+            icon typeset. See below.
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <p>
+        Click Confirm depends on <a href="https://bootstrap-vue.github.io" target="_blank">Bootstrap Vue</a> for use of
+        its Popover component. Don't worry, this component will be pulled in automatically if you are not already using
+        it.
+      </p>
+      <p>
+
+      </p>
+      <div class="row mt-2 mb-3">
+        <div class="col-md-4">
           Pull Click Confirm in to your project via npm:
+        </div>
+        <div class="col-md-8">
           <pre><code>npm install click-confirm --save</code></pre>
         </div>
         <div class="col-md-4">
           The recommended use method is to include the ClickConfirm.vue file as part of your package generation.
         </div>
         <div class="col-md-8">
-        <pre><code>import Vue from 'vue'
+          <pre><code>import Vue from 'vue'
 import ClickConfirm from 'click-confirm/src/ClickConfirm.vue'
 
 Vue.component('clickConfirm', ClickConfirm);</code></pre>
@@ -86,7 +87,7 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
           inefficient and not recommended for a production environment.
         </div>
         <div class="col-md-8">
-        <pre><code>import Vue from 'vue'
+          <pre><code>import Vue from 'vue'
 import ClickConfirm from 'click-confirm'
 
 Vue.component('clickConfirm', ClickConfirm);</code></pre>
@@ -94,11 +95,11 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
       </div>
 
       <h4 id="the-basics">The Basics</h4>
+      <p>
+        Click Confirm will flexibly intercept any click events. This includes both native DOM events and VueJS
+        events. Any emitted 'click' events will be intercepted and re-transmitted if confirmed via the popup prompt.
+      </p>
       <div class="row">
-        <div class="col-md-12">
-          Click Confirm will flexibly intercept any click events. This includes both native DOM events and VueJS
-          events. Any emitted 'click' events will be intercepted and re-transmitted if confirmed via the popup prompt.
-        </div>
         <div class="col-md-4 text-center">
           <p>
             <click-confirm>
@@ -122,7 +123,7 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
           </p>
         </div>
         <div class="col-md-8">
-        <pre><code>&lt;click-confirm&gt;
+          <pre><code>&lt;click-confirm&gt;
   &lt;a href="http://www.example.com" target="_blank"&gt;Typical URL link&lt;/a&gt;
 &lt;/click-confirm&gt;
 
@@ -144,105 +145,99 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
   &gt;VueJS @click event&lt;/button&gt;
 &lt;/click-confirm&gt;</code></pre>
         </div>
-        <div class="col-md-12">
-          Subsequent demonstrations all use a Javascript alert for brevity.
-        </div>
       </div>
+      <p>
+        Subsequent demonstrations all use a Javascript alert for brevity.
+      </p>
 
       <h4>Properties</h4>
-      <div class="row">
-        <div class="col-md-12">
-          All properties on the Click Confirm component are optional. Demonstrations are provided below.
-        </div>
-        <div class="col-md-12">
-          <table class="table table-bordered table-hover">
-            <thead class="thead-default">
-            <tr>
-              <th>Property</th>
-              <th>Data Type(s)</th>
-              <th>Default</th>
-              <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <th scope="row"><code>button-size</code></th>
-              <td><code>"sm"</code>, <code>""</code> (medium), or <code>"lg"</code></td>
-              <td><code>""</code></td>
-              <td>Render size of confirmation buttons, per Bootstrap 4.</td>
-            </tr>
-            <tr>
-              <th scope="row"><code>copy-attributes</code></th>
-              <td>String, Array</td>
-              <td><code>["href", "target"]</code></td>
-              <td>
-                Attributes from enclosed element which will be copied to the 'yes' button. Intended for copying a URL
-                to the 'yes' button, but it is customizable.
-              </td>
-            </tr>
-            <tr>
-              <th scope="row"><code>disabled</code></th>
-              <td>Boolean</td>
-              <td><code>false</code></td>
-              <td>
-                Suppresses the click-confirm dialogue and allows the click event to proceed as normal. If set to 'true'
-                while the Click Confirm popover it being displayed, the popover will be suppressed.
-              </td>
-            </tr>
-            <tr>
-              <th scope="row"><code>messages</code></th>
-              <td>Object, formatted per Default</td>
-              <td><code>{
-                title: 'Are you sure?',
-                yes: 'Yes',
-                no: 'No'
-                }</code></td>
-              <td>
-                Messages displayed within the confirmation dialogue. All or part of the object properties may be
-                included; any missing will be displayed per the default values. This design is intended to make
-                multi-language support straightforward.
-              </td>
-            </tr>
-            <tr>
-              <th scope="row"><code>no-class</code></th>
-              <td>String, Array, Object</td>
-              <td><code>"btn btn-secondary"</code></td>
-              <td>Class to use for the 'No' button, can be used for further styling.</td>
-            </tr>
-            <tr>
-              <th scope="row"><code>no-icon</code></th>
-              <td>String, Array, Object</td>
-              <td><code>"fa fa-times"</code></td>
-              <td>Typeset icon visible within the 'No' button.</td>
-            </tr>
-            <tr>
-              <th scope="row"><code>placement</code></th>
-              <td>String</td>
-              <td><code>"top"</code></td>
-              <td>Display location of the confirmation popover per <a href="https://bootstrap-vue.js.org/docs/components/popover#positioning" target="_blank">Bootstrap-Vue docs</a>.</td>
-            </tr>
-            <tr>
-              <th scope="row"><code>yes-icon</code></th>
-              <td>String, Array, Object</td>
-              <td><code>"fa fa-check"</code></td>
-              <td>Typeset icon visible within the 'Yes' button.</td>
-            </tr>
-            <tr>
-              <th scope="row"><code>yes-class</code></th>
-              <td>String, Array, Object</td>
-              <td><code>"btn btn-primary"</code></td>
-              <td>Class to use for the 'Yes' button, can be used for further styling.</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <p>All properties on the Click Confirm component are optional. Demonstrations are provided below.</p>
+      <table class="table table-bordered table-hover">
+        <thead class="thead-default">
+        <tr>
+          <th>Property</th>
+          <th>Data Type(s)</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row"><code>button-size</code></th>
+          <td><code>"sm"</code>, <code>""</code> (medium), or <code>"lg"</code></td>
+          <td><code>""</code></td>
+          <td>Render size of confirmation buttons, per Bootstrap 4.</td>
+        </tr>
+        <tr>
+          <th scope="row"><code>copy-attributes</code></th>
+          <td>String, Array</td>
+          <td><code>["href", "target"]</code></td>
+          <td>
+            Attributes from enclosed element which will be copied to the 'yes' button. Intended for copying a URL
+            to the 'yes' button, but it is customizable.
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><code>disabled</code></th>
+          <td>Boolean</td>
+          <td><code>false</code></td>
+          <td>
+            Suppresses the click-confirm dialogue and allows the click event to proceed as normal. If set to 'true'
+            while the Click Confirm popover it being displayed, the popover will be suppressed.
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><code>messages</code></th>
+          <td>Object, formatted per Default</td>
+          <td><code>{
+            title: 'Are you sure?',
+            yes: 'Yes',
+            no: 'No'
+            }</code></td>
+          <td>
+            Messages displayed within the confirmation dialogue. All or part of the object properties may be
+            included; any missing will be displayed per the default values. This design is intended to make
+            multi-language support straightforward.
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><code>no-class</code></th>
+          <td>String, Array, Object</td>
+          <td><code>"btn btn-secondary"</code></td>
+          <td>Class to use for the 'No' button, can be used for further styling.</td>
+        </tr>
+        <tr>
+          <th scope="row"><code>no-icon</code></th>
+          <td>String, Array, Object</td>
+          <td><code>"fa fa-times"</code></td>
+          <td>Typeset icon visible within the 'No' button.</td>
+        </tr>
+        <tr>
+          <th scope="row"><code>placement</code></th>
+          <td>String</td>
+          <td><code>"top"</code></td>
+          <td>Display location of the confirmation popover per <a href="https://bootstrap-vue.js.org/docs/components/popover#positioning" target="_blank">Bootstrap-Vue docs</a>.</td>
+        </tr>
+        <tr>
+          <th scope="row"><code>yes-icon</code></th>
+          <td>String, Array, Object</td>
+          <td><code>"fa fa-check"</code></td>
+          <td>Typeset icon visible within the 'Yes' button.</td>
+        </tr>
+        <tr>
+          <th scope="row"><code>yes-class</code></th>
+          <td>String, Array, Object</td>
+          <td><code>"btn btn-primary"</code></td>
+          <td>Class to use for the 'Yes' button, can be used for further styling.</td>
+        </tr>
+        </tbody>
+      </table>
 
       <h4>Placement</h4>
+      <p>
+        Like Bootstrap Popover, the confirmation prompt can be displayed on any side of the target.
+      </p>
       <div class="row">
-        <div class="col-md-12">
-          Like Bootstrap Popover, the confirmation prompt can be displayed on any side of the target.
-        </div>
         <div class="col-md-4">
           <div class="row">
             <div class="col-12 text-center">
@@ -276,7 +271,7 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
           </div>
         </div>
         <div class="col-md-8">
-        <pre><code>&lt;click-confirm placement="bottom"&gt;
+          <pre><code>&lt;click-confirm placement="bottom"&gt;
   &lt;button class="btn btn-primary" @click="successAlert"&gt;Bottom&lt;/button&gt;
 &lt;/click-confirm&gt;
 
@@ -295,11 +290,11 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
       </div>
 
       <h4>Multi-Language Support</h4>
+      <p>
+        Supporting multiple languages is simple. The object-based structure is intended to make implementing multiple
+        languages straightforward.
+      </p>
       <div class="row">
-        <div class="col-md-12">
-          Supporting multiple languages is simple. The object-based structure is intended to make implementing multiple
-          languages straightforward.
-        </div>
         <div class="col-md-4 text-center">
           <p>
             <click-confirm>
@@ -318,7 +313,7 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
           </p>
         </div>
         <div class="col-md-8">
-        <pre><code>&lt;click-confirm&gt;
+          <pre><code>&lt;click-confirm&gt;
   &lt;button class="btn btn-primary" @click="successAlert"&gt;English (default)&lt;/button&gt;
 &lt;/click-confirm&gt;
 
@@ -335,13 +330,13 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
       </div>
 
       <h4>Button Icons</h4>
+      <p>
+        Click Confirm ships configured to use Font Awesome's 'check' (for yes) and 'times' (for no) icons. You can
+        provide alternate CSS classes to apply to the button's 'span' element. Any other CSS-based icon library, such as
+        Glyphicons, may also be used. In order to allow this, you must include all prefix class names required by your
+        desired icon library.
+      </p>
       <div class="row">
-        <div class="col-md-12">
-          Click Confirm ships configured to use Font Awesome's 'check' (for yes) and 'times' (for no) icons. You can
-          provide alternate CSS classes to apply to the button's 'span' element. Any other CSS-based icon library, such as
-          Glyphicons, may also be used. In order to allow this, you must include all prefix class names required by your
-          desired icon library.
-        </div>
         <div class="col-md-4 text-center">
           <p>
             <click-confirm>
@@ -360,7 +355,7 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
           </p>
         </div>
         <div class="col-md-8">
-        <pre><code>&lt;click-confirm&gt;
+          <pre><code>&lt;click-confirm&gt;
   &lt;button class="btn btn-primary" @click="successAlert"&gt;Check and X (default)&lt;/button&gt;
 &lt;/click-confirm&gt;
 
@@ -375,13 +370,13 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
       </div>
 
       <h4>Button Classes</h4>
+      <p>
+        Click Confirm ships configured to use Bootstraps's 'btn-primary' (for yes) and 'btn-secondary' (for no) classes.
+        You can provide alternate CSS classes to apply to the button's 'a' element, thus allowing for more detailed
+        styling of the buttons. The styles provides will be merged with the 'button-size' classes, so the button size
+        should not be included in this property.
+      </p>
       <div class="row">
-        <div class="col-md-12">
-          Click Confirm ships configured to use Bootstraps's 'btn-primary' (for yes) and 'btn-secondary' (for no) classes. You can
-          provide alternate CSS classes to apply to the button's 'a' element, thus allowing for more detailed styling of the buttons.
-          The styles provides will be merged with the 'button-size' classes, so the button size should not be included in this
-          property.
-        </div>
         <div class="col-md-4 text-center">
           <p>
             <click-confirm>
@@ -406,10 +401,10 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
       </div>
 
       <h4>Button Size</h4>
+      <p>
+        The confirmation button size is customizable.
+      </p>
       <div class="row">
-        <div class="col-md-12">
-          The confirmation button size is customizable.
-        </div>
         <div class="col-md-4 text-center">
           <p>
             <click-confirm>
@@ -443,10 +438,10 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
       </div>
 
       <h4>Disable</h4>
+      <p>
+        The confirmation feature can be programmatically suppressed, which will allow the click event to proceed uninterrupted.
+      </p>
       <div class="row">
-        <div class="col-md-12">
-          The confirmation feature can be programmatically suppressed, which will allow the click event to proceed uninterrupted.
-        </div>
         <div class="col-md-4 text-center">
           <p>
             <click-confirm>
@@ -470,14 +465,31 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
         </div>
       </div>
 
+      <h4>Icon Slots</h4>
+      <p>
+        The button icons may optionally be replaced via the named slots <code>confirm-yes-icon</code> and <code>confirm-no-icon</code>. Use this to use your own custom icon solution, for example, if you want to use <a href="https://fontawesome.com/how-to-use/on-the-web/using-with/vuejs" target="_blank">Font Awesome 5's vue-fontawesome package</a> for rendering icons from Javascript-embedded SVGs.
+      </p>
+      <pre><code>&lt;click-confirm&gt;
+  &lt;button class="btn btn-primary" @click="successAlert"&gt;Default icons&lt;/button&gt;
+&lt;/click-confirm&gt;
+
+&lt;click-confirm&gt;
+  &lt;template name="confirm-yes-icon"&gt;
+    &lt;vue-font-awesome :icon="['far', 'check']"&gt;&lt;/vue-font-awesome&gt;
+  &lt;/template&gt;
+  &lt;template name="confirm-yes-icon"&gt;
+    &lt;vue-font-awesome :icon="['far', 'times']"&gt;&lt;/vue-font-awesome&gt;
+  &lt;/template&gt;
+  &lt;button class="btn btn-primary" @click="successAlert"&gt;Custom icons&lt;/button&gt;
+&lt;/click-confirm&gt;</code></pre>
+
       <h4>Custom Appearance</h4>
-      <div class="row">
-        <div class="col-md-12">
-          The Click Confirm popover is enclosed in a CSS element and class <code>"div.click-confirm"</code>. This allows you to customize the
-          appearance using CSS scoped within this parent class. Please study the code on GitHub or a rendered example from
-          above to learn how to target the desired elements.
-        </div>
-      </div>
+      <p>
+        The Click Confirm popover is enclosed in a CSS element and class <code>"div.click-confirm"</code>. This allows you to customize the
+        appearance using CSS scoped within this parent class. Please study the code on GitHub or a rendered example from
+        above to learn how to target the desired elements.
+      </p>
+
     </div>
   </div>
 </template>
