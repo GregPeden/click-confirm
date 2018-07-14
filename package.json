@@ -57,10 +57,10 @@
   "unpkg": "dist/click-confirm",
   "poi": {
     "entry": "dev/main.js",
-    "dist": "dev/dist",
+    "dist": "docs",
     "homepage": "/click-confirm/",
     "html": {
-      "template": "docs/index.html"
+      "template": "dev/docs/index.html"
     }
   },
   "files": [
