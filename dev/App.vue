@@ -474,10 +474,10 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
 &lt;/click-confirm&gt;
 
 &lt;click-confirm&gt;
-  &lt;template name="confirm-yes-icon"&gt;
+  &lt;template slot="confirm-yes-icon"&gt;
     &lt;vue-font-awesome :icon="['far', 'check']"&gt;&lt;/vue-font-awesome&gt;
   &lt;/template&gt;
-  &lt;template name="confirm-yes-icon"&gt;
+  &lt;template slot="confirm-yes-icon"&gt;
     &lt;vue-font-awesome :icon="['far', 'times']"&gt;&lt;/vue-font-awesome&gt;
   &lt;/template&gt;
   &lt;button class="btn btn-primary" @click="successAlert"&gt;Custom icons&lt;/button&gt;
