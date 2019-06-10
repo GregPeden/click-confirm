@@ -207,6 +207,15 @@ Vue.component('clickConfirm', ClickConfirm);</code></pre>
           <td>Class to use for the 'No' button, can be used for further styling.</td>
         </tr>
         <tr>
+          <th scope="row"><code>container</code></th>
+          <td>String, null</td>
+          <td><code>"my-custom-element-id"</code></td>
+          <td>(Inherited from Bootstrap Vue popover component)<a href="https://bootstrap-vue.js.org/docs/components/popover##component-reference" target="_blank">Bootstrap-Vue docs</a>
+            Element string ID to append rendered popover into. If null or element not found, popover is appended to
+            <code>"body"</code> (default)
+          </td>
+        </tr>
+        <tr>
           <th scope="row"><code>no-icon</code></th>
           <td>String, Array, Object</td>
           <td><code>"fa fa-times"</code></td>

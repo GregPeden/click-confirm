@@ -64,9 +64,6 @@
             container: {
                 type: String,
                 default: null,
-                validator(value) {
-                    return typeof value === 'string' || value === null;
-                }
             },
 
             buttonSize: {
