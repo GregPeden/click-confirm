@@ -9,6 +9,7 @@
       <slot></slot>
     </span>
     <b-popover
+        :container="container"
         :target="randomId"
         :show.sync="isOpen"
         :placement="placement"
@@ -60,6 +61,11 @@
         },
 
         props: {
+            container: {
+                type: String,
+                default: null,
+            },
+
             buttonSize: {
                 type: String,
                 default: "",
