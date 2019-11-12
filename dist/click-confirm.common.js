@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var bPopover = _interopDefault(require('bootstrap-vue/es/components/popover/popover'));
+var bPopover = _interopDefault(require('bootstrap-vue'));
 
 var messagesDefault = {
     title: 'Are you sure?',
