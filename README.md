@@ -20,7 +20,7 @@ npm install click-confirm --save
 ```
 
 ## Documentation
-See [Official documentation](https://sirlamer.github.io/click-confirm/) for detailed usage information.
+See [Official documentation](https://gregpeden.github.io/click-confirm/) for detailed usage information.
 
 ## Accreditations
 - This component relies on [Bootstrap Vue's](https://github.com/bootstrap-vue/bootstrap-vue) Popover component. If you
