@@ -5,6 +5,7 @@
 ## Dependencies
 - [VueJS](https://vuejs.org/) v2.0+
 - [Bootstrap](https://v4-alpha.getbootstrap.com/) v4-beta.2
+- [Bootstrap Vue](https://bootstrap-vue.js.org/) v1.2.0 or v2 (peer dependency, used for the Popover component)
 - [Font Awesome](http://fontawesome.io/) v4 (optional, for displaying default button icons)
 
 ## Build Setup
